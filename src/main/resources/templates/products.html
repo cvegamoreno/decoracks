@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Productos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Libraries Stylesheet -->
+  <link href="assets/animate/animate.min.css" rel="stylesheet">
+
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Template Stylesheet -->
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-body-tertiary" data-bs-theme="light">
+  <div class="menu">
+    <button class="hamburger-btn d-lg-none btn btn-primary text-light" onclick="toggleSidebar()">
+      &#9776;
+    </button>
+    <!-- Sidebar Full -->
+    <aside id="sidebarFull" class="sidebar-full d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-body-secondary"
+      style="width: 280px; min-height: 100vh;">
+      <a href="/"
+        class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none link-body-emphasis fw-bold">
+        <i class="fa fa-tv px-3" aria-hidden="true"></i>
+        <span class="fs-4">Deco-Racks</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="fa fa-user me-2" aria-hidden="true"></i>
+            Usuarios
+          </a>
+        </li>
+        <li>
+          <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-chart-pie me-2"></i>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="category.html" class="nav-link" aria-current="page">
+            <i class="fa-solid fa-list me-2"></i>
+            Categorias
+          </a>
+        </li>
+        <li>
+          <a href="products.html" class="nav-link active">
+            <i class="fa-solid fa-cart-flatbed me-2"></i>
+            Productos
+          </a>
+        </li>
+        <li>
+          <a href="stock.html" class="nav-link">
+            <i class="fa-solid fa-box-open me-2"></i>
+            Stock
+          </a>
+        </li>
+        <li>
+          <a href="customers.html" class="nav-link">
+            <i class="fa-solid fa-people-group me-2"></i>
+            Clientes
+          </a>
+        </li>
+        <li>
+          <a href="orders.html" class="nav-link">
+            <i class="fa-solid fa-receipt me-2"></i>
+            Pedidos
+          </a>
+        </li>
+        <li>
+          <a href="technician.html" class="nav-link">
+            <i class="fa-solid fa-people-carry-box me-2"></i>
+            Asign. Tecnico
+          </a>
+        </li>
+        <li>
+          <a href="deliveries.html" class="nav-link">
+            <i class="fa-solid fa-truck-fast me-2"></i>
+            Entregas
+          </a>
+        </li>
+      </ul>
+      <hr>
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-decoration-none link-body-emphasis dropdown-toggle"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+          <strong>Carlos</strong>
+        </a>
+        <ul class="dropdown-menu shadow border-primary">
+          <li><a class="dropdown-item" href="#">Ajustes</a></li>
+          <li><a class="dropdown-item" href="#">Perfil</a></li>
+          <li>
+            <hr class="dropdown-divider border-primary">
+          </li>
+          <li><a class="dropdown-item" href="#">Salir</a></li>
+        </ul>
+      </div>
+    </aside>
+    <!-- End Sidebar Full -->
+
+    <!-- Sidebar Icon -->
+    <aside id="sidebarIcons" class="sidebar-icons d-flex d-lg-none flex-column bg-body-tertiary text-center"
+      style="width: 4.5rem; min-height: 100vh;">
+
+      <a href="/" class="d-block p-3 link-body-emphasis text-decoration-none " title="Icon-only"
+        data-bs-toggle="tooltip" data-bs-placement="right" onclick="toggleSidebar()">
+        &#9776;
+        <span class="visually-hidden">Icon-only</span>
+      </a>
+      <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link py-3 border-bottom rounded-0" aria-current="page" title="Usuarios"
+            data-bs-toggle="tooltip" data-bs-placement="right">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="dashboard.html" class="nav-link py-3 border-bottom rounded-0" title="Dashboard"
+            data-bs-toggle="tooltip" data-bs-placement="right">
+            <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="category.html" class="nav-link py-3 border-bottom rounded-0" title="Categorías"
+            data-bs-toggle="tooltip" data-bs-placement="right">
+            <i class="fa-solid fa-list"></i>
+          </a>
+        </li>
+        <li>
+          <a href="products.html" class="nav-link active py-3 border-bottom rounded-0" title="Productos"
+            data-bs-toggle="tooltip" data-bs-placement="right">
+            <i class="fa-solid fa-cart-flatbed"></i>
+          </a>
+        </li>
+        <li>
+          <a href="stock.html" class="nav-link py-3 border-bottom rounded-0" title="Stock" data-bs-toggle="tooltip"
+            data-bs-placement="right">
+            <i class="fa-solid fa-box-open"></i>
+          </a>
+        </li>
+        <li>
+          <a href="customers.html" class="nav-link py-3 border-bottom rounded-0" title="Clientes"
+            data-bs-toggle="tooltip" data-bs-placement="right">
+            <i class="fa-solid fa-people-group"></i>
+          </a>
+        </li>
+        <li>
+          <a href="orders.html" class="nav-link py-3 border-bottom rounded-0" title="Pedidos" data-bs-toggle="tooltip"
+            data-bs-placement="right">
+            <i class="fa-solid fa-receipt"></i>
+          </a>
+        </li>
+        <li>
+          <a href="technician.html" class="nav-link py-3 border-bottom rounded-0" title="Asig. Técnico"
+            data-bs-toggle="tooltip" data-bs-placement="right">
+            <i class="fa-solid fa-people-carry-box"></i>
+          </a>
+        </li>
+        <li>
+          <a href="deliveries.html" class="nav-link py-3 border-bottom rounded-0" title="Entregas"
+            data-bs-toggle="tooltip" data-bs-placement="right">
+            <i class="fa-solid fa-truck-fast"></i>
+          </a>
+        </li>
+      </ul>
+      <div class="dropdown border-top">
+        <a href="#"
+          class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="Carlos" width="24" height="24" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu text-small shadow border-primary">
+          <li><a class="dropdown-item" href="#">Ajustes</a></li>
+          <li><a class="dropdown-item" href="#">Perfil</a></li>
+          <li>
+            <hr class="dropdown-divider border-primary">
+          </li>
+          <li><a class="dropdown-item" href="#">Salir</a></li>
+        </ul>
+      </div>
+    </aside>
+    <!-- End Sidebar Icon -->
+
+    <div class="main-panel p-0 pb-2">
+      <div class="container">
+        <div
+          class="d-flex align-items-left align-items-md-center flex-column flex-md-row py-4 mb-1 sticky-top bg-body-tertiary border-bottom">
+          <div class="text-body-emphasis">
+            <h3 class="fw-bold mb-3">Productos</h3>
+            <h6 class="mb-2">Lista de productos</h6>
+          </div>
+          <div class="ms-md-auto py-2 py-md-0 justify-content-between row text-center">
+            <div class="col">
+              <a href="#" class="btn btn-outline-primary btn-round" onclick="recargarPagina()">Actualizar</a>
+            </div>
+            <div class="col">
+              <a href="#" class="btn btn-primary btn-round link-body-emphasis" data-bs-toggle='modal'
+                data-bs-target='#modAddProducts'>Agregar</a>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="card mt-3">
+            <div class="card-header">
+              Tabla Productos
+            </div>
+            <div class="card-body text-center text-wrap">
+              <div class="table-responsive">
+
+                <table class="table table-hover table-striped table-bordered m-auto" style="max-width: 600px;">
+                  <thead class="text-center">
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Descripcion</th>
+                      <th scope="col">Accion</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tUsers" class="text-start table-group-divider align-middle">
+                    <tr>
+                      <td>Rack de Techo</td>
+                      <td>racks solo para techo</td>
+                      <td class="text-center">
+                        <div class='form-button-action'>
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modProd' title=''
+                            class='btn btn-outline-warning btnEditarCategoria' data-original-title='Edit Category'
+                            data-id='${categoria.id}' data-nombre='${categoria.nombre_categoria}'
+                            data-descripcion='${categoria.descrip_categoria}'>
+                            <i class='fa fa-edit'></i>
+                          </button>
+
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelProd'
+                            class='btn btn-outline-danger btnDelProd' data-id='${categoria.id}'
+                            data-nombre='${categoria.nombre_categoria}'>
+                            <i class='fa fa-times'></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Rack de pared</td>
+                      <td>exclusivo para pared</td>
+                      <td class="text-center">
+                        <div class='form-button-action'>
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modProd' title=''
+                            class='btn btn-outline-warning btnEditarUsuario' data-original-title='Edit Task'
+                            data-id='${usuario.id}' data-nombre='${usuario.nombre_usuario}'
+                            data-correo='${usuario.correo}' data-tipo='${usuario.tipo_usuario}'>
+                            <i class='fa fa-edit'></i>
+                          </button>
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelProd'
+                            class='btn btn-outline-danger btnDelUsers' data-id='${usuario.id}'
+                            data-nombre='${usuario.nombre_usuario}'>
+                            <i class='fa fa-times'></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+            <!-- <div class="card-footer text-body-secondary">
+              2 days ago
+            </div> -->
+          </div>
+          <!-- Agregar Producto -->
+          <div class='modal fade' id='modAddProducts' tabindex='-1' aria-labelledby='mAddProducts' aria-hidden='true'>
+            <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
+              <div class='modal-content text-body-emphasis'>
+                <form id="formAddProductsForm">
+                  <div class='modal-header'>
+                    <h5 class='modal-title' id='mAddProducts'>Agregar Producto</h5>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                  </div>
+                  <div class='modal-body'>
+                    <div class='container container-fluid'>
+                      <div class='row gy-3'>
+                        <div class='col-12 col-md-6'>
+                          <label for='nombre'>Nombre</label>
+                          <input type='text' class='form-control' id='nombreAdd' name="nombre_producto"
+                            placeholder="Escriba el nombre del producto" required>
+                        </div>
+                        <div class='col-12 col-md-6'>
+                          <label for='price'>Precio</label>
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">S/.</span>
+                            <input type="number" class="form-control" id="priceAdd" aria-label="price" step="0.01" min="0">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for='tipo_usuario'>Categoria</label>
+                          <select class="form-control form-select" id="catId" name="catId" required>
+                            <option value="1">Rack de techo</option>
+                            <option value="2">Rack de pared</option>
+                            <option value="3">Vendedor</option>
+                          </select>
+                        </div>
+                        <div class='col-12 col-md-6'>
+                          <label for='descripcion_cat'>Descripción del producto</label>
+                          <textarea class='form-control' id='descripAdd_prod' name='descrip_prod' rows='4'
+                            required></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='modal-footer'>
+                    <button type='submit' class='btn btn-success btn-user'>Añadir</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- Modificar Producto -->
+          <div class='modal fade' id='modProd' tabindex='-1' aria-labelledby='mProducts' aria-hidden='true'>
+            <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
+              <div class='modal-content text-body-emphasis'>
+                <form id="formModifyProd">
+                  <div class='modal-header'>
+                    <h5 class='modal-title' id='mCat'>Modificar Producto</h5>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                  </div>
+                  <div class='modal-body'>
+                    <div class='container container-fluid'>
+                      <div class='row gy-3'>
+                        <input type='hidden' name='id_producto' value='' id='id_producto'>
+                        <div class='col-12 col-md-6'>
+                          <label for='nombre'>Nombre</label>
+                          <input type='text' class='form-control' id='nombre' name="nombre_producto"
+                            placeholder="Producto" required>
+                        </div>
+                        <div class='col-12 col-md-6'>
+                          <label for='price'>Precio <small>(p. unitario)</small></label>
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">S/.</span>
+                            <input type="number" class="form-control" id="price" aria-label="price" step="0.01" min="0">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for='tipo_usuario'>Categoria</label>
+                          <select class="form-control form-select" id="catId" name="catId" required>
+                            <option value="1">Rack de techo</option>
+                            <option value="2">Rack de pared</option>
+                            <option value="3">Vendedor</option>
+                          </select>
+                        </div>
+                        <div class='col-12 col-md-6'>
+                          <label for='descripcion_cat'>Descripción del producto</label>
+                          <textarea class='form-control' id='descrip_prod' name='descrip_prod' rows='4'
+                            required></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                    <button type='submit' class='btn btn-warning btn-prod'>Modificar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- Eliminar Producto -->
+          <div class='modal fade' id='modDelProd' tabindex='-1' aria-labelledby='mDelProd' aria-hidden='true'>
+            <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>
+              <div class='modal-content text-body-emphasis'>
+                <form id="confirmacionEliminarForm">
+                  <div class='modal-header'>
+                    <h5 class='modal-title' id='mDelCat'>Eliminar Producto</h5>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                  </div>
+                  <div class='modal-body'>
+                    <div class='container container-fluid text-center'>
+                      <p id="nombreCategoriaEliminar">#Eliminar producto</p>
+                      <input type="hidden" id="id_categoria_eliminar" name="id_categoria_eliminar">
+                    </div>
+                  </div>
+                  <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
+                    <button type='submit' class='btn btn-danger btn-cat'>Eliminar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Theme -->
+  <div class="theme-container text-center mt-5">
+    <div class="dropdown">
+      <button class="btn btn-primary theme-btn py-2 dropdown-toggle align-items-center link-body-emphasis" type="button"
+        id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i id="themeIcon" class="bi bi-moon-stars"></i>
+      </button>
+      <ul class="dropdown-menu shadow border-primary" aria-labelledby="themeDropdown">
+        <li><a class="dropdown-item" href="#" data-theme="light"><i class="bi bi-sun"></i> Claro</a></li>
+        <li><a class="dropdown-item" href="#" data-theme="dark"><i class="bi bi-moon-stars"></i> Oscuro</a></li>
+        <li><a class="dropdown-item" href="#" data-theme="auto"><i class="bi bi-circle-half"></i> Según el sistema</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- End Theme -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/themeswitcher.js"></script>
+  <script src="assets/js/jquery-3.7.1.min.js"></script>
+  <script src="assets/js/sidebars.js"></script>
+  <script>
+    const sidebarFull = document.getElementById('sidebarFull');
+    const sidebarIcon = document.getElementById('sidebarIcons');
+    const mainPanel = document.querySelector('.main-panel');
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
+
+    function toggleSidebar() {
+      if (window.innerWidth < 768) {
+        // Para móviles: mostrar u ocultar el menú completo
+        sidebarFull.classList.toggle('show');
+        sidebarIcon.classList.toggle('d-none');
+        // OCULTAR iconos en móviles
+      } else {
+        mainPanel.classList.toggle('expanded');
+      }
+    }
+
+    document.addEventListener('click', function (event) {
+      const isClickInsideSidebar = sidebarFull.contains(event.target) || sidebarIcon.contains(event.target);
+      const isClickOnButton = hamburgerBtn.contains(event.target);
+
+      if (!isClickInsideSidebar && !isClickOnButton) {
+        if (window.innerWidth < 768) {
+          sidebarFull.classList.remove('show');
+        } else if (window.innerWidth <= 991.98) {
+          sidebarFull.classList.remove('expanded');
+          sidebarIcon.classList.remove('expanded');
+          mainPanel.classList.remove('expanded');
+        }
+      }
+    });
+
+    function adjustSidebarOnLoad() {
+      if (window.innerWidth >= 768 && window.innerWidth <= 991.98) {
+        // Tablet
+        sidebarFull.classList.remove('expanded');
+        sidebarIcon.classList.add('expanded'); // Mostrar iconos en tablet
+      } else if (window.innerWidth < 768) {
+        // Móvil
+        sidebarFull.classList.remove('expanded');
+        sidebarFull.classList.remove('show');
+        sidebarIcon.classList.remove('expanded');
+      } else {
+        // PC
+        sidebarFull.classList.add('expanded');
+        sidebarIcon.classList.remove('expanded');
+        mainPanel.classList.add('expanded');
+      }
+    }
+    window.addEventListener('DOMContentLoaded', adjustSidebarOnLoad);
+    window.addEventListener('resize', adjustSidebarOnLoad);
+  </script>
+
+</body>
+
+</html>

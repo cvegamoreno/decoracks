@@ -1,0 +1,121 @@
+.theme-container {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  z-index: 2050;
+}
+
+.theme-btn {
+  border: none; 
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.menu {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.sidebar {
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  z-index: 1040;
+}
+
+.sidebar-full {
+  width: 280px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar-icon {
+  width: 70px;
+  height: 100vh;
+  position: sticky;
+  display: none;
+  top: 0;
+}
+
+.main-panel {
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100vh;
+  padding: 0 10px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar-icon .nav-link span,
+.sidebar-icon .fs-4,
+.sidebar-icon .dropdown strong {
+  display: none !important;
+}
+
+/* Para tablets y móviles: solo iconos */
+@media (max-width: 991.98px) {
+  .sidebar-icon {
+    display: block;
+  }
+
+  .hamburger-btn {
+    display: block;
+    position: fixed;
+    top: 6px;
+    left: 14px;
+    z-index: 1050;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+
+  .sidebar-full.expanded {
+    display: block;
+  }
+
+  .sidebar-icon.expanded {
+    display: none;
+  }
+}
+
+/* En móvil (≤767px) se oculta todo inicialmente */
+@media (max-width: 767.98px) {
+
+  .sidebar-icon,
+  .sidebar-full {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  /* Mostrar/ocultar en móviles */
+  .sidebar-full.show {
+    display: flex !important;
+  }
+
+  .sidebar-icon.show,
+  .sidebar-full.show {
+    transform: translateX(0);
+  }
+
+  .main-panel {
+    margin-left: 0;
+  }
+}
+
+.sidebar-full.expanded {
+  width: 280px !important;
+  transition: width 0.3s ease;
+}
+
+.sidebar-icons.expanded {
+  display: flex !important;
+}
+
+/* Cuando el sidebar está expandido, ajustar main-panel */
+.main-panel.expanded {
+  margin-left: 1px;
+  transition: margin 0.3s ease;
+}
