@@ -1,7 +1,8 @@
 package com.decoracks.app.decoracks.service;
 
 import com.decoracks.app.decoracks.models.entity.Categoria;
-import com.decoracks.app.decoracks.repository.CategoriaRepository;
+import com.decoracks.app.decoracks.models.repository.CategoriaRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

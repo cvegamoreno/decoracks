@@ -1,7 +1,8 @@
 package com.decoracks.app.decoracks.service;
 
 import com.decoracks.app.decoracks.models.entity.Sede;
-import com.decoracks.app.decoracks.repository.SedeRepository;
+import com.decoracks.app.decoracks.models.repository.SedeRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

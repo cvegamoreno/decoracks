@@ -1,4 +1,4 @@
-package com.decoracks.app.decoracks.repository;
+package com.decoracks.app.decoracks.models.repository;
 
 import com.decoracks.app.decoracks.models.entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
