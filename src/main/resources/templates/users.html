@@ -297,7 +297,7 @@
           <div class='modal fade' id='modAddUsers' tabindex='-1' aria-labelledby='mAddUsers' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
               <div class='modal-content text-body-emphasis'>
-                <form id="formAddUserForm">
+                <form th:action="@{/usuarios/save}" method="post">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mAddUsers'>Agregar Usuario</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -307,17 +307,17 @@
                       <div class='row gy-3'>
                         <div class='col-lg-6'>
                           <label for='nombre'>Nombre Usuario</label>
-                          <input type='text' class='form-control' id='nombreAdd' name="nombre_usuario"
+                          <input type='text' class='form-control' id='nombreAdd' name="nombre"
                             placeholder="Nombre de Usuario" required>
                         </div>
                         <div class='col-md-6'>
                           <label for='correo'>Correo</label>
-                          <input type='email' class='form-control' id='correoAdd' name='correo'
+                          <input type='email' class='form-control' id='emailAdd' name='email'
                             placeholder="Correo Electrónico" required>
                         </div>
                         <div class='col-md-6'>
                           <label for='contrasena'>Contraseña</label>
-                          <input type='password' class='form-control' id='contrasena' name='contrasena'
+                          <input type='password' class='form-control' id='contrasena' name='password'
                             placeholder="Contraseña" required>
                         </div>
                         <div class='col-md-6'>
@@ -327,7 +327,7 @@
                         </div>
                         <div class="col-md-6">
                           <label for='tipo_usuario'>Tipo de Usuario</label>
-                          <select class="form-control form-select" id="tipo_usuarioAdd" name="tipo_usuarioAdd" required>
+                          <select class="form-control form-select" id="rolAdd" name="rol" required>
                             <option value="administrador">Administrador</option>
                             <option value="jefe_sede">Jefe de Sede</option>
                             <option value="vendedor">Vendedor</option>
@@ -336,9 +336,9 @@
                         </div>
                         <div class="col-md-6">
                           <label for='tipo_usuario'>Sede</label>
-                          <select class="form-control form-select" id="tipo_usuarioAdd" name="tipo_usuarioAdd" required>
-                            <option value="centro">Centro</option>
-                            <option value="miraflores">Miraflores</option>
+                          <select class="form-control form-select" id="tipo_usuarioAdd" name="sede_id" required>
+                            <option value="1">Centro</option>
+                            <option value="2">Miraflores</option>
                             <option value="surco">Surco</option>
                           </select>
                         </div>

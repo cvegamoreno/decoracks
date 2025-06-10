@@ -27,6 +27,12 @@ public class Categoria {
         this.productos = productos;
     }
 
+    public Categoria(int id, String nombre, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     public int getId() {
         return id;
     }
@@ -58,4 +64,10 @@ public class Categoria {
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
+
+    @Override
+    public String toString() {
+        return "Categoria [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
+    }
+    
 }

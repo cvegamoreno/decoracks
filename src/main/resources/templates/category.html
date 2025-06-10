@@ -288,7 +288,7 @@
           <div class='modal fade' id='modAddUsers' tabindex='-1' aria-labelledby='mAddUsers' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>
               <div class='modal-content text-body-emphasis'>
-                <form id="formAddUserForm">
+                <form th:action="@{/categorias/save}" method="post">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mAddUsers'>Agregar Categoria</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -298,19 +298,19 @@
                       <div class='row gy-3'>
                         <div class='col-12'>
                           <label for='nombre'>Nombre Categoría</label>
-                          <input type='text' class='form-control' id='nombreAdd' name="nombre_usuario"
+                          <input type='text' class='form-control' id='nombreAdd' name="nombre"
                             placeholder="Defina un nombre" required>
                         </div>
                         <div class='col-12'>
                           <label for='descripcion_cat'>Descripción de Categoría</label>
-                          <textarea class='form-control' id='descrip_cat' name='descrip_cat' rows='5'
+                          <textarea class='form-control' id='descrip_cat' name='descripcion' rows='5'
                             required></textarea>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class='modal-footer'>
-                    <button type='submit' class='btn btn-success btn-user'>Añadir</button>
+                    <button type='submit' class='btn btn-success btn-cat'>Añadir</button>
                   </div>
                 </form>
               </div>

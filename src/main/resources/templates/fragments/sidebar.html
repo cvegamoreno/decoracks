@@ -1,0 +1,150 @@
+<!-- templates/fragments/sidebar.html -->
+<div th:fragment="sidebar">
+
+  <!-- Sidebar Full (Escritorio) -->
+   <!-- DEBUG: activeUrl = [[${activeUrl}]] -->
+  <aside id="sidebarFull" class="sidebar-full d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-body-secondary"
+    style="width: 280px; min-height: 100vh;">
+    <a th:href="@{/}" class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none link-body-emphasis fw-bold">
+      <i class="fa fa-tv px-3"></i>
+      <span class="fs-4">Deco-Racks</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+
+      <li class="nav-item">
+        <a th:href="@{/usuarios}" th:classappend="${activeUrl?.startsWith('/usuarios')} ? 'active'" class="nav-link">
+          <i class="fa fa-user me-2"></i> Usuarios
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/dashboard}" th:classappend="${activeUrl?.startsWith('/dashboard')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-chart-pie me-2"></i> Dashboard
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/categorias}" th:classappend="${activeUrl?.startsWith('/categorias')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-list me-2"></i> Categorías
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/productos}" th:classappend="${activeUrl?.startsWith('/productos')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-cart-flatbed me-2"></i> Productos
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/stock}" th:classappend="${activeUrl?.startsWith('/stock')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-box-open me-2"></i> Stock
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/clientes}" th:classappend="${activeUrl?.startsWith('/clientes')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-people-group me-2"></i> Clientes
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/pedidos}" th:classappend="${activeUrl?.startsWith('/pedidos')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-receipt me-2"></i> Pedidos
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/tecnico}" th:classappend="${activeUrl?.startsWith('/tecnico')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-people-carry-box me-2"></i> Asign. Técnico
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/entregas}" th:classappend="${activeUrl?.startsWith('/entregas')} ? 'active'" class="nav-link">
+          <i class="fa-solid fa-truck-fast me-2"></i> Entregas
+        </a>
+      </li>
+
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-decoration-none link-body-emphasis dropdown-toggle"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="avatar" width="32" height="32" class="rounded-circle me-2">
+        <strong th:text="${session.usuarioNombre}">Usuario</strong>
+      </a>
+      <ul class="dropdown-menu shadow border-primary">
+        <li><a class="dropdown-item" href="#">Ajustes</a></li>
+        <li><a class="dropdown-item" href="#">Perfil</a></li>
+        <li><hr class="dropdown-divider border-primary"></li>
+        <li><a class="dropdown-item" href="#">Salir</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Sidebar Icons (Móvil) -->
+  <aside id="sidebarIcons" class="sidebar-icons d-flex d-lg-none flex-column bg-body-tertiary text-center"
+    style="width: 4.5rem; min-height: 100vh;">
+
+    <a th:href="@{/}" class="d-block p-3 link-body-emphasis text-decoration-none" title="Icon-only"
+      data-bs-toggle="tooltip" data-bs-placement="right" onclick="toggleSidebar()">
+      &#9776;
+      <span class="visually-hidden">Icon-only</span>
+    </a>
+
+    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+      <li class="nav-item">
+        <a th:href="@{/usuarios}" th:classappend="${activeUrl?.startsWith('/usuarios')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Usuarios">
+          <i class="fa fa-user"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/dashboard}" th:classappend="${activeUrl?.startsWith('/dashboard')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Dashboard">
+          <i class="fa-solid fa-chart-pie"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/categorias}" th:classappend="${activeUrl?.startsWith('/categorias')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Categorías">
+          <i class="fa-solid fa-list"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/productos}" th:classappend="${activeUrl?.startsWith('/productos')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Productos">
+          <i class="fa-solid fa-cart-flatbed"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/stock}" th:classappend="${activeUrl?.startsWith('/stock')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Stock">
+          <i class="fa-solid fa-box-open"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/clientes}" th:classappend="${activeUrl?.startsWith('/clientes')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Clientes">
+          <i class="fa-solid fa-people-group"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/pedidos}" th:classappend="${activeUrl?.startsWith('/pedidos')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Pedidos">
+          <i class="fa-solid fa-receipt"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/tecnico}" th:classappend="${activeUrl?.startsWith('/tecnico')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Asig. Técnico">
+          <i class="fa-solid fa-people-carry-box"></i>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/entregas}" th:classappend="${activeUrl?.startsWith('/entregas')} ? 'active'" class="nav-link py-3 border-bottom rounded-0" title="Entregas">
+          <i class="fa-solid fa-truck-fast"></i>
+        </a>
+      </li>
+    </ul>
+
+    <div class="dropdown border-top">
+      <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="Carlos" width="24" height="24" class="rounded-circle">
+      </a>
+      <ul class="dropdown-menu text-small shadow border-primary">
+        <li><a class="dropdown-item" href="#">Ajustes</a></li>
+        <li><a class="dropdown-item" href="#">Perfil</a></li>
+        <li><hr class="dropdown-divider border-primary"></li>
+        <li><a class="dropdown-item" href="#">Salir</a></li>
+      </ul>
+    </div>
+  </aside>
+
+</div>

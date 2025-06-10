@@ -95,4 +95,10 @@ public class Producto {
         this.detalles = detalles;
     }
 
+    @Override
+    public String toString() {
+        return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio
+                + ", categoria=" + categoria + ", stockSedes=" + stockSedes + ", detalles=" + detalles + "]";
+    }
+    
 }

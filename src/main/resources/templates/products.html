@@ -236,11 +236,11 @@
                     </tr>
                   </thead>
                   <tbody id="tProducts" class="text-start table-group-divider align-middle">
-                    <tr>
-                      <td>Rack 15</td>
-                      <td>rack para tv 20 pulgadas</td>
-                      <td>s/. 89.00</td>
-                      <td>Rack de pared</td>
+                    <tr th:each="p:${productos}">
+                      <td th:text="${producto.nombre}">Rack 15</td>
+                      <td th:text="${producto.descripcion}">rack para tv 20 pulgadas</td>
+                      <td th:text="${producto.precio}">s/. 89.00</td>
+                      <td th:text="${producto.categoria}">Rack de pared</td>
                       <td class="text-center">
                         <div class='form-button-action'>
                           <button type='button' data-bs-toggle='modal' data-bs-target='#modProd' title=''
@@ -293,7 +293,7 @@
           <div class='modal fade' id='modAddProducts' tabindex='-1' aria-labelledby='mAddProducts' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
               <div class='modal-content text-body-emphasis'>
-                <form id="formAddProductsForm">
+                <form th:action="@{/productos/save}" method="post" th:object="${producto}">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mAddProducts'>Agregar Producto</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -303,33 +303,33 @@
                       <div class='row gy-3'>
                         <div class='col-12 col-md-6'>
                           <label for='nombre'>Nombre</label>
-                          <input type='text' class='form-control' id='nombreAdd' name="nombre_producto"
+                          <input type='text' class='form-control' id='nombre' name="nombre"
                             placeholder="Escriba el nombre del producto" required>
                         </div>
                         <div class='col-12 col-md-6'>
                           <label for='price'>Precio</label>
                           <div class="input-group mb-3">
                             <span class="input-group-text">S/.</span>
-                            <input type="number" class="form-control" id="priceAdd" aria-label="price" step="0.01" min="0">
+                            <input type="number" class="form-control" id="precio" name="precio" aria-label="price" step="0.01" min="0">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <label for='tipo_usuario'>Categoria</label>
-                          <select class="form-control form-select" id="catId" name="catId" required>
+                          <select class="form-control form-select" id="categoria" name="categoria" required>
                             <option value="1">Rack de techo</option>
                             <option value="2">Rack de pared</option>
                           </select>
                         </div>
                         <div class='col-12 col-md-6'>
                           <label for='descripcion_cat'>Descripción del producto</label>
-                          <textarea class='form-control' id='descripAdd_prod' name='descrip_prod' rows='4'
+                          <textarea class='form-control' id='descripcion' name='descripcion' rows='4'
                             required></textarea>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class='modal-footer'>
-                    <button type='submit' class='btn btn-success btn-user'>Añadir</button>
+                    <button type='submit' class='btn btn-success btn-prod'>Añadir</button>
                   </div>
                 </form>
               </div>

@@ -72,7 +72,7 @@
           </a>
         </li>
         <li>
-          <a href="/clientes" class="nav-link">
+          <a href="/clientes" class="nav-link active">
             <i class="fa-solid fa-people-group me-2"></i>
             Clientes
           </a>
@@ -297,7 +297,7 @@
           <div class='modal fade' id='modAddCustomer' tabindex='-1' aria-labelledby='mAddCustomer' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
               <div class='modal-content text-body-emphasis'>
-                <form id="formAddCustomerForm">
+                <form th:action="@{/clientes/save}" method="post">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mAddCustomer'>Agregar Cliente</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -307,7 +307,7 @@
                       <div class='row gy-3'>
                         <div class='col-lg-6'>
                           <label for='nombre'>Nombre de cliente</label>
-                          <input type='text' class='form-control' id='nombreAdd' name="nombre_cliente"
+                          <input type='text' class='form-control' id='nombreAdd' name="nombre"
                             placeholder="Nombre de Cliente" required>
                         </div>
                         <div class='col-md-6'>
@@ -322,7 +322,7 @@
                         </div>
                         <div class="col-md-6">
                           <label for='distrito'>Distrito</label>
-                          <select class="form-control form-select" id="distritoAdd" name="distritoAdd" required>
+                          <select class="form-control form-select" id="distritoAdd" name="distrito" required>
                             <option value="san_miguel">San Miguel</option>
                             <option value="lince">Lince</option>
                             <option value="miraflores">Mirafloores</option>
