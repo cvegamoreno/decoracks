@@ -1,5 +1,12 @@
 package com.decoracks.app.decoracks.service;
 
-public abstract class StockProductoSedeService {
+import com.decoracks.app.decoracks.models.entity.StockProductoSede;
 
+import java.util.List;
+
+public interface StockProductoSedeService {
+    List<StockProductoSede> findAll();
+    StockProductoSede findById(int id);
+    StockProductoSede save(StockProductoSede stock);
+    void deleteById(int id);
 }

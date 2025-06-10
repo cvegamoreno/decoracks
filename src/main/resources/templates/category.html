@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -17,13 +17,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- Libraries Stylesheet -->
-  <link href="assets/animate/animate.min.css" rel="stylesheet">
+  <link th:href="@{animate/animate.min.css}" rel="stylesheet">
 
   <!-- Customized Bootstrap Stylesheet -->
-  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <link th:href="@{css/bootstrap.css}" rel="stylesheet">
 
   <!-- Template Stylesheet -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link th:href="@{css/style.css}" rel="stylesheet">
 </head>
 
 <body class="bg-body-tertiary" data-bs-theme="light">
@@ -42,7 +42,7 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a href="index.html" class="nav-link">
+          <a href="/usuarios" class="nav-link">
             <i class="fa fa-user me-2" aria-hidden="true"></i>
             Usuarios
           </a>
@@ -54,43 +54,43 @@
           </a>
         </li>
         <li>
-          <a href="category.html" class="nav-link active" aria-current="page">
+          <a href="/categorias" class="nav-link active" aria-current="page">
             <i class="fa-solid fa-list me-2"></i>
             Categorias
           </a>
         </li>
         <li>
-          <a href="products.html" class="nav-link">
+          <a href="/productos" class="nav-link">
             <i class="fa-solid fa-cart-flatbed me-2"></i>
             Productos
           </a>
         </li>
         <li>
-          <a href="stock.html" class="nav-link">
+          <a href="/stock" class="nav-link">
             <i class="fa-solid fa-box-open me-2"></i>
             Stock
           </a>
         </li>
         <li>
-          <a href="customers.html" class="nav-link">
+          <a href="/clientes" class="nav-link">
             <i class="fa-solid fa-people-group me-2"></i>
             Clientes
           </a>
         </li>
         <li>
-          <a href="orders.html" class="nav-link">
+          <a href="/pedidos" class="nav-link">
             <i class="fa-solid fa-receipt me-2"></i>
             Pedidos
           </a>
         </li>
         <li>
-          <a href="technician.html" class="nav-link">
+          <a href="/tecnico" class="nav-link">
             <i class="fa-solid fa-people-carry-box me-2"></i>
             Asign. Tecnico
           </a>
         </li>
         <li>
-          <a href="deliveries.html" class="nav-link">
+          <a href="/entregas" class="nav-link">
             <i class="fa-solid fa-truck-fast me-2"></i>
             Entregas
           </a>
@@ -126,56 +126,56 @@
       </a>
       <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
         <li class="nav-item">
-          <a href="index.html" class="nav-link py-3 border-bottom rounded-0" aria-current="page" title="Usuarios"
+          <a href="/usuarios" class="nav-link py-3 border-bottom rounded-0" aria-current="page" title="Usuarios"
             data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa fa-user" aria-hidden="true"></i>
           </a>
         </li>
         <li>
-          <a href="dashboard.html" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip"
-            data-bs-placement="right">
+          <a href="/dashboard" class="nav-link py-3 border-bottom rounded-0" title="Dashboard"
+            data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
           </a>
         </li>
         <li>
-          <a href="category.html" class="nav-link active py-3 border-bottom rounded-0" title="Categorías"
+          <a href="/categorias" class="nav-link py-3 border-bottom rounded-0" title="Categorías"
             data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa-solid fa-list"></i>
           </a>
         </li>
         <li>
-          <a href="products.html" class="nav-link py-3 border-bottom rounded-0" title="Productos" data-bs-toggle="tooltip"
-            data-bs-placement="right">
+          <a href="/productos" class="nav-link active py-3 border-bottom rounded-0" title="Productos"
+            data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa-solid fa-cart-flatbed"></i>
           </a>
         </li>
         <li>
-          <a href="stock.html" class="nav-link py-3 border-bottom rounded-0" title="Stock" data-bs-toggle="tooltip"
+          <a href="/stock" class="nav-link py-3 border-bottom rounded-0" title="Stock" data-bs-toggle="tooltip"
             data-bs-placement="right">
             <i class="fa-solid fa-box-open"></i>
           </a>
         </li>
         <li>
-          <a href="customers.html" class="nav-link py-3 border-bottom rounded-0" title="Clientes" data-bs-toggle="tooltip"
-            data-bs-placement="right">
+          <a href="/clientes" class="nav-link py-3 border-bottom rounded-0" title="Clientes"
+            data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa-solid fa-people-group"></i>
           </a>
         </li>
         <li>
-          <a href="orders.html" class="nav-link py-3 border-bottom rounded-0" title="Pedidos" data-bs-toggle="tooltip"
+          <a href="/pedidos" class="nav-link py-3 border-bottom rounded-0" title="Pedidos" data-bs-toggle="tooltip"
             data-bs-placement="right">
             <i class="fa-solid fa-receipt"></i>
           </a>
         </li>
         <li>
-          <a href="technician.html" class="nav-link py-3 border-bottom rounded-0" title="Asig. Técnico" data-bs-toggle="tooltip"
-            data-bs-placement="right">
+          <a href="/tecnico" class="nav-link py-3 border-bottom rounded-0" title="Asig. Técnico"
+            data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa-solid fa-people-carry-box"></i>
           </a>
         </li>
         <li>
-          <a href="deliveries.html" class="nav-link py-3 border-bottom rounded-0" title="Entregas" data-bs-toggle="tooltip"
-            data-bs-placement="right">
+          <a href="/entregas" class="nav-link py-3 border-bottom rounded-0" title="Entregas"
+            data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa-solid fa-truck-fast"></i>
           </a>
         </li>
@@ -396,9 +396,9 @@
   <!-- End Theme -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/themeswitcher.js"></script>
-  <script src="assets/js/jquery-3.7.1.min.js"></script>
-  <script src="assets/js/sidebars.js"></script>
+  <script th:src="@{js/themeswitcher.js}"></script>
+  <script th:src="@{js/jquery-3.7.1.min.js}"></script>
+  <script th:src="@{js/sidebars.js}"></script>
   <script>
     const sidebarFull = document.getElementById('sidebarFull');
     const sidebarIcon = document.getElementById('sidebarIcons');

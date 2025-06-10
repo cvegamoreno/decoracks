@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/usuarios")
-public class UsersController {
+@RequestMapping("/categorias")
+public class CategoryController {
 
     @GetMapping("")
-    public String user() {
-        return "users";
-    }
+    public String home(){
+        return "category";
+    }   
 }
