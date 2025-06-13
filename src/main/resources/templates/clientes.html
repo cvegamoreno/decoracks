@@ -235,38 +235,14 @@
                       <th scope="col">Accion</th>
                     </tr>
                   </thead>
-                  <tbody id="tUsers" class="text-start table-group-divider align-middle">
-                    <tr>
-                      <td>Carlos Vega</td>
-                      <td>carlosvegasba@gmail.com</td>
-                      <td>Jr. los nogales 777</td>
-                      <td>San Isidro</td>
-                      <td>55807055</td>
-                      <td>999999999</td>
-                      <td class="text-center">
-                        <div class='form-button-action'>
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modCustomer' title=''
-                            class='btn btn-link btn-warning btnEditarCustomer text-body-emphasis'
-                            data-original-title='Edit Task' data-id='${customer.id}'
-                            data-nombre='${customer.nombre_customer}' data-correo='${customer.correo}'
-                            data-tipo='${customer.tipo_customer}'>
-                            <i class='fa fa-edit'></i>
-                          </button>
-
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelCustomer'
-                            class='btn btn-outline-danger btnDelCustomer' data-id='${customer.id}'
-                            data-nombre='${customer.nombre_usuario}'>
-                            <i class='fa fa-times'></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Angus Young</td>
-                      <td>acdc@gmail.com</td>
-                      <td>Jefe de Sede</td>
-                      <td>Miraflores</td>
-                      <td>04/05/2025 - 11:47:25</td>
+                  <tbody class="text-start table-group-divider align-middle">
+                    <tr th:each="cl: ${clientes}">
+                      <td th:text="${cl.nombre}">Carlos Vega</td>
+                      <td th:text="${cl.correo}">carlosvegasba@gmail.com</td>
+                      <td th:text="${cl.direccion}">Jr. los nogales 777</td>
+                      <td th:text="${cl.distrito}">San Isidro</td>
+                      <td th:text="${cl.dni}">55807055</td>
+                      <td th:text="${cl.telefono}">999999999</td>
                       <td class="text-center">
                         <div class='form-button-action'>
                           <button type='button' data-bs-toggle='modal' data-bs-target='#modCustomer' title=''

@@ -3,6 +3,8 @@ package com.decoracks.app.decoracks.service.impl;
 import com.decoracks.app.decoracks.models.entity.Producto;
 import com.decoracks.app.decoracks.models.repository.ProductoRepository;
 import com.decoracks.app.decoracks.service.ProductoService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +13,8 @@ import java.util.Optional;
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
-    private final ProductoRepository repository;
+    @Autowired
+    private ProductoRepository repository;
 
     public ProductoServiceImpl(ProductoRepository repository) {
         this.repository = repository;
@@ -28,7 +31,7 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Optional<Producto> findById(int id) {
+    public Optional<Producto> get(int id) {
         return repository.findById(id);
     }
 

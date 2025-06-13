@@ -2,6 +2,7 @@ package com.decoracks.app.decoracks.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +18,11 @@ public class UsersController {
     private UsuarioService usuarioService;
 
     @GetMapping("")
-    public String user() {
+    public String listar(Model model) {
+        model.addAttribute("usuarios", usuarioService.findAll());
         return "users";
     }
+
     @PostMapping("/save")
     public String save(Usuario usuario){
         Sede s= new Sede(1,"","","",0,0);

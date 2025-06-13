@@ -232,11 +232,10 @@
                       <th scope="col">Accion</th>
                     </tr>
                   </thead>
-                  <tbody id="tUsers" class="text-start table-group-divider align-middle">
-                    <tr>
-                      <td>Rack de Techo</td>
-                      <td>racks solo para techo</td>
-
+                  <tbody class="text-start table-group-divider align-middle">
+                    <tr th:each="c: ${categorias}">
+                      <td th:text="${c.nombre}"></td>
+                      <td th:text="${c.descripcion}"></td>
                       <td class="text-center">
                         <div class='form-button-action'>
                           <button type='button' data-bs-toggle='modal' data-bs-target='#modCat' title=''

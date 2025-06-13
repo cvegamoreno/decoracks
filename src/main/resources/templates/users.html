@@ -231,41 +231,15 @@
                       <th scope="col">Correo</th>
                       <th scope="col">Rol</th>
                       <th scope="col">Sede</th>
-                      <th scope="col">Fecha de Registro</th>
                       <th scope="col">Accion</th>
                     </tr>
                   </thead>
                   <tbody id="tUsers" class="text-start table-group-divider align-middle">
-                    <tr>
-                      <td>Carlos Vega</td>
-                      <td>carlosvegasba@gmail.com</td>
-                      <td>Administrador</td>
-                      <td>Centro</td>
-                      <td>06/05/2025 - 17:14:25</td>
-                      <td class="text-center">
-                        <div class='form-button-action'>
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modUsers' title=''
-                            class='btn btn-link btn-warning btnEditarUsuario text-body-emphasis'
-                            data-original-title='Edit Task' data-id='${usuario.id}'
-                            data-nombre='${usuario.nombre_usuario}' data-correo='${usuario.correo}'
-                            data-tipo='${usuario.tipo_usuario}'>
-                            <i class='fa fa-edit'></i>
-                          </button>
-
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelUsers'
-                            class='btn btn-outline-danger btnDelUsers' data-id='${usuario.id}'
-                            data-nombre='${usuario.nombre_usuario}'>
-                            <i class='fa fa-times'></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Angus Young</td>
-                      <td>acdc@gmail.com</td>
-                      <td>Jefe de Sede</td>
-                      <td>Miraflores</td>
-                      <td>04/05/2025 - 11:47:25</td>
+                    <tr th:each="u: ${usuarios}">
+                      <td th:text="${u.nombre}">Carlos Vega</td>
+                      <td th:text="${u.email}">carlosvegasba@gmail.com</td>
+                      <td th:text="${u.rol}">Administrador</td>
+                      <td th:text="${u.sede.nombre}">Centro</td>
                       <td class="text-center">
                         <div class='form-button-action'>
                           <button type='button' data-bs-toggle='modal' data-bs-target='#modUsers' title=''
@@ -287,7 +261,6 @@
                   </tbody>
                 </table>
               </div>
-              <a href="#" class="btn btn-primary">Boton sensualón</a>
             </div>
             <!-- <div class="card-footer text-body-secondary">
               2 days ago
