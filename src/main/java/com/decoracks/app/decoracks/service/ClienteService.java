@@ -32,4 +32,8 @@ public class ClienteService {
     public void deleteById(int id) {
         repository.deleteById(id);
     }
+
+    public Optional<Cliente> findByDni(String dni) {
+        return repository.findByDni(dni);
+    }
 }

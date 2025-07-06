@@ -53,4 +53,9 @@ public class ProductoServiceImpl implements ProductoService {
                 })
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
     }
+
+    @Override
+    public Producto findById(int id) {
+        return repository.findById(id).orElse(null); // O lanza excepción si prefieres
+    }
 }

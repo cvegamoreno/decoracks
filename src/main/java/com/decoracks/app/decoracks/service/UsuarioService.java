@@ -32,4 +32,12 @@ public class UsuarioService {
     public void deleteById(int id) {
         repository.deleteById(id);
     }
+
+    public Optional<Usuario> findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
 }

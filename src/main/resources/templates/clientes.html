@@ -132,8 +132,8 @@
           </a>
         </li>
         <li>
-          <a href="/dashboard" class="nav-link py-3 border-bottom rounded-0" title="Dashboard"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/dashboard" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
           </a>
         </li>
@@ -144,8 +144,8 @@
           </a>
         </li>
         <li>
-          <a href="/productos" class="nav-link py-3 border-bottom rounded-0" title="Productos"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/productos" class="nav-link py-3 border-bottom rounded-0" title="Productos" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-cart-flatbed"></i>
           </a>
         </li>
@@ -174,8 +174,8 @@
           </a>
         </li>
         <li>
-          <a href="/entregas" class="nav-link py-3 border-bottom rounded-0" title="Entregas"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/entregas" class="nav-link py-3 border-bottom rounded-0" title="Entregas" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-truck-fast"></i>
           </a>
         </li>
@@ -245,17 +245,15 @@
                       <td th:text="${cl.telefono}">999999999</td>
                       <td class="text-center">
                         <div class='form-button-action'>
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modCustomer' title=''
-                            class='btn btn-link btn-warning btnEditarCustomer text-body-emphasis'
-                            data-original-title='Edit Task' data-id='${customer.id}'
-                            data-nombre='${customer.nombre_customer}' data-correo='${customer.correo}'
-                            data-tipo='${customer.tipo_customer}'>
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modCustomer'
+                            th:title="'Editar '+ ${cl.nombre}" class='btn btn-link btn-warning btnEditarCustomer text-body-emphasis'
+                            th:attr="data-id=${cl.id}, data-nombre=${cl.nombre}, data-correo=${cl.correo}, data-direccion=${cl.direccion}, data-distrito=${cl.distrito}, data-dni=${cl.dni}, data-telefono=${cl.telefono}">
                             <i class='fa fa-edit'></i>
                           </button>
 
                           <button type='button' data-bs-toggle='modal' data-bs-target='#modDelCustomer'
-                            class='btn btn-outline-danger btnDelCustomer' data-id='${customer.id}'
-                            data-nombre='${customer.nombre_usuario}'>
+                            th:title="'Eliminar '+ ${cl.nombre}" class='btn btn-outline-danger btnDelCustomer'
+                            th:attr="data-id=${cl.id}, data-nombre=${cl.nombre}">
                             <i class='fa fa-times'></i>
                           </button>
                         </div>
@@ -283,7 +281,7 @@
                       <div class='row gy-3'>
                         <div class='col-lg-6'>
                           <label for='nombre'>Nombre de cliente</label>
-                          <input type='text' class='form-control' id='nombreAdd' name="nombre"
+                          <input type='text' class='form-control' id='nombreAdd' name="nombre_cliente"
                             placeholder="Nombre de Cliente" required>
                         </div>
                         <div class='col-md-6'>
@@ -298,12 +296,9 @@
                         </div>
                         <div class="col-md-6">
                           <label for='distrito'>Distrito</label>
-                          <select class="form-control form-select" id="distritoAdd" name="distrito" required>
-                            <option value="san_miguel">San Miguel</option>
-                            <option value="lince">Lince</option>
-                            <option value="miraflores">Mirafloores</option>
-                            <option value="surco">Surco</option>
-                          </select>
+                          <div th:replace="~{fragments/selects :: selectDistritos}" th:with="distritos=${distritos}">
+                          </div>
+
                         </div>
                         <div class='col-md-6'>
                           <label for='dni'>DNI</label>
@@ -329,7 +324,7 @@
           <div class='modal fade' id='modCustomer' tabindex='-1' aria-labelledby='mCustomer' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
               <div class='modal-content text-body-emphasis'>
-                <form id="formModifyCustomer">
+                <form th:action="@{/clientes/update}" method="post">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mCustomer'>Modificar Cliente</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -337,7 +332,7 @@
                   <div class='modal-body'>
                     <div class='container container-fluid'>
                       <div class='row gy-3'>
-                        <input type='hidden' name='id_cliente' value='' id='id_cliente'>
+                        <input type='hidden' name='id' value='' id='id_cliente'>
                         <div class='col-lg-6'>
                           <label for='nombre'>Nombre Cliente</label>
                           <input type='text' class='form-control' id='nombre' name="nombre_cliente"
@@ -355,21 +350,16 @@
                         </div>
                         <div class="col-md-6">
                           <label for='distrito'>Distrito</label>
-                          <select class="form-control form-select" id="distrito" name="distrito" required>
-                            <option value="san_miguel">San Miguel</option>
-                            <option value="lince">Lince</option>
-                            <option value="miraflores">Mirafloores</option>
-                            <option value="surco">Surco</option>
-                          </select>
+                          <div th:replace="~{fragments/selects :: selectDistritos(idSelect='distritoEdit')}"></div>
                         </div>
                         <div class='col-md-6'>
                           <label for='dni'>DNI</label>
-                          <input type='text' class='form-control' id='dni' name='dni'
+                          <input type='text' class='form-control' id='dniModify' name='dni'
                             placeholder="Digite DNI de Cliente" required>
                         </div>
                         <div class='col-md-6'>
                           <label for='telefono'>Celular</label>
-                          <input type='text' class='form-control' id='telefono' name='telefono'
+                          <input type='text' class='form-control' id='telefonoModify' name='telefono'
                             placeholder="Teléfono">
                         </div>
                       </div>
@@ -387,7 +377,7 @@
           <div class='modal fade' id='modDelCustomer' tabindex='-1' aria-labelledby='mDelCustomer' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>
               <div class='modal-content text-body-emphasis'>
-                <form id="confirmacionEliminarForm">
+                <form th:action="@{/clientes/delete}" method="post">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mDelUsers'>Eliminar Cliente</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -414,8 +404,8 @@
   <!-- Theme -->
   <div class="theme-container text-center mt-5">
     <div class="dropdown">
-      <button class="btn btn-primary theme-btn py-2 dropdown-toggle align-items-center link-body-emphasis" type="button" id="themeDropdown"
-        data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn btn-primary theme-btn py-2 dropdown-toggle align-items-center link-body-emphasis" type="button"
+        id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i id="themeIcon" class="bi bi-moon-stars"></i>
       </button>
       <ul class="dropdown-menu shadow border-primary" aria-labelledby="themeDropdown">
@@ -484,6 +474,46 @@
     window.addEventListener('DOMContentLoaded', adjustSidebarOnLoad);
     window.addEventListener('resize', adjustSidebarOnLoad);
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const editButtons = document.querySelectorAll('.btnEditarCustomer');
 
+      editButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const id = this.dataset.id;
+          const nombre = this.dataset.nombre;
+          const correo = this.dataset.correo;
+          const direccion = this.dataset.direccion;
+          const distrito = this.dataset.distrito;
+          const dni = this.dataset.dni;
+          const telefono = this.dataset.telefono;
+
+          document.getElementById('id_cliente').value = id;
+          document.getElementById('nombre').value = nombre;
+          document.getElementById('correo').value = correo;
+          document.getElementById('direccion').value = direccion;
+          document.getElementById('dniModify').value = dni;
+          document.getElementById('telefonoModify').value = telefono;
+          document.getElementById('distritoEdit').value = distrito;
+        });
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deleteButtons = document.querySelectorAll('.btnDelCustomer');
+
+      deleteButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const id = this.dataset.id;
+          const nombre = this.dataset.nombre;
+
+          document.getElementById('id_cliente_eliminar').value = id;
+          document.getElementById('nombreClienteEliminar').textContent = `¿Está seguro de eliminar al cliente: ${nombre}?`;
+        });
+      });
+    });
+  </script>
 </body>
+
 </html>

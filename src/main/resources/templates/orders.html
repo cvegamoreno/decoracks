@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Productos</title>
+  <title>Pedidos - Deco-Racks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Google Web Fonts -->
@@ -15,7 +15,6 @@
   <!-- Icon Font Stylesheet -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
 
   <!-- Libraries Stylesheet -->
   <link th:href="@{animate/animate.min.css}" rel="stylesheet">
@@ -43,25 +42,25 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a href="/usuarios" class="nav-link">
+          <a th:href="@{'/usuarios'}" class="nav-link" aria-current="page">
             <i class="fa fa-user me-2" aria-hidden="true"></i>
             Usuarios
           </a>
         </li>
         <li>
-          <a href="dashboard.html" class="nav-link">
+          <a href="/categorias" class="nav-link">
             <i class="fa-solid fa-chart-pie me-2"></i>
             Dashboard
           </a>
         </li>
         <li>
-          <a href="/categorias" class="nav-link" aria-current="page">
+          <a th:href="@{'/categorias'}" class="nav-link">
             <i class="fa-solid fa-list me-2"></i>
             Categorias
           </a>
         </li>
         <li>
-          <a href="/productos" class="nav-link active">
+          <a href="/productos" class="nav-link">
             <i class="fa-solid fa-cart-flatbed me-2"></i>
             Productos
           </a>
@@ -79,7 +78,7 @@
           </a>
         </li>
         <li>
-          <a href="/pedidos" class="nav-link">
+          <a href="/pedidos" class="nav-link active">
             <i class="fa-solid fa-receipt me-2"></i>
             Pedidos
           </a>
@@ -145,8 +144,8 @@
           </a>
         </li>
         <li>
-          <a href="/productos" class="nav-link active py-3 border-bottom rounded-0" title="Productos"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/productos" class="nav-link py-3 border-bottom rounded-0" title="Productos" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-cart-flatbed"></i>
           </a>
         </li>
@@ -163,8 +162,8 @@
           </a>
         </li>
         <li>
-          <a href="/pedidos" class="nav-link py-3 border-bottom rounded-0" title="Pedidos" data-bs-toggle="tooltip"
-            data-bs-placement="right">
+          <a href="/pedidos" class="nav-link py-3 active border-bottom rounded-0" title="Pedidos"
+            data-bs-toggle="tooltip" data-bs-placement="right">
             <i class="fa-solid fa-receipt"></i>
           </a>
         </li>
@@ -199,58 +198,66 @@
     </aside>
     <!-- End Sidebar Icon -->
 
-    <div class="main-panel p-0 pb-2">
+    <div class="main-panel p-0">
       <div class="container">
         <div
           class="d-flex align-items-left align-items-md-center flex-column flex-md-row py-4 mb-1 sticky-top bg-body-tertiary border-bottom">
           <div class="text-body-emphasis">
-            <h3 class="fw-bold mb-3">Productos</h3>
-            <h6 class="mb-2">Lista de productos</h6>
+            <h3 class="fw-bold mb-3">Pedidos</h3>
+            <h6 class="mb-2">Lista de Pedidos</h6>
           </div>
           <div class="ms-md-auto py-2 py-md-0 justify-content-between row text-center">
             <div class="col">
               <a href="#" class="btn btn-outline-primary btn-round" onclick="recargarPagina()">Actualizar</a>
             </div>
             <div class="col">
-              <a href="#" class="btn btn-primary btn-round link-body-emphasis" data-bs-toggle='modal'
-                data-bs-target='#modAddProducts'>Agregar</a>
+              <a href="#" class="btn btn-primary btn-round link-body-emphasis text-nowrap" data-bs-toggle='modal'
+                data-bs-target='#modAddOrder'>Nueva Venta</a>
             </div>
           </div>
         </div>
         <div class="container">
           <div class="card mt-3">
             <div class="card-header">
-              Tabla Productos
+              Tabla Pedidos
             </div>
             <div class="card-body text-center text-wrap">
               <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered m-auto">
+                <table class="table table-hover table-striped table-bordered">
                   <thead class="text-center">
                     <tr>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Descripcion</th>
-                      <th scope="col">Precio</th>
-                      <th scope="col">Categoría</th>
+                      <th scope="col">Id</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Cliente</th>
+                      <th scope="col">DNI</th>
+                      <th scope="col">Distrito</th>
+                      <th scope="col">Tecnico Asignado</th>
                       <th scope="col">Accion</th>
                     </tr>
                   </thead>
                   <tbody class="text-start table-group-divider align-middle">
-                    <tr th:each="p: ${productos}">
-                      <td th:text="${p.nombre}"></td>
-                      <td th:text="${p.descripcion}"></td>
-                      <td th:text="${p.precio}"></td>
-                      <td th:text="${p.categoria.nombre}"></td>
+                    <tr th:each="cl: ${clientes}">
+                      <td th:text="${cl.id}">1</td>
+                      <td th:text="${cl.fecha}">2023-01-01</td>
+                      <td th:text="${cl.estado}">Pendiente</td>
+                      <td th:text="${cl.cliente}">Carlos Vega</td>
+                      <td th:text="${cl.dni}">55807055</td>
+                      <td th:text="${cl.distrito}">San Isidro</td>
+                      <td th:text="${cl.tecnico}">Juan Perez</td>
+                      <td th:text="${cl.telefono}">999999999</td>
                       <td class="text-center">
                         <div class='form-button-action'>
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modProd'
-                            th:title="'Editar ' + ${p.nombre}" class='btn btn-outline-warning btnEditarProducto'
-                            th:attr="data-id=${p.id}, data-nombre=${p.nombre}, data-descripcion=${p.descripcion}, data-precio=${p.precio}, data-categoria=${p.categoria.id}">
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modCustomer'
+                            th:title="'Editar '+ ${cl.nombre}"
+                            class='btn btn-link btn-warning btnEditarCustomer text-body-emphasis'
+                            th:attr="data-id=${cl.id}, data-nombre=${cl.nombre}, data-correo=${cl.correo}, data-direccion=${cl.direccion}, data-distrito=${cl.distrito}, data-dni=${cl.dni}, data-telefono=${cl.telefono}">
                             <i class='fa fa-edit'></i>
                           </button>
 
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelProd'
-                            th:title="'Eliminar ' + ${p.nombre}" th:attr="data-id=${p.id}, data-nombre=${p.nombre}"
-                            class='btn btn-outline-danger btnDelProd'>
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelCustomer'
+                            th:title="'Eliminar '+ ${cl.nombre}" class='btn btn-outline-danger btnDelCustomer'
+                            th:attr="data-id=${cl.id}, data-nombre=${cl.nombre}">
                             <i class='fa fa-times'></i>
                           </button>
                         </div>
@@ -259,128 +266,180 @@
                   </tbody>
                 </table>
               </div>
-
             </div>
             <!-- <div class="card-footer text-body-secondary">
               2 days ago
             </div> -->
           </div>
-          <!-- Agregar Producto -->
-          <div class='modal fade' id='modAddProducts' tabindex='-1' aria-labelledby='mAddProducts' aria-hidden='true'>
-            <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
+          <!-- Agregar Pedido -->
+          <div class='modal fade' id='modAddOrder' tabindex='-1' aria-labelledby='mAddOrder' aria-hidden='true'
+            data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class='modal-dialog modal-dialog-centered modal-xl'>
               <div class='modal-content text-body-emphasis'>
-                <form th:action="@{/productos/save}" method="post" th:object="${producto}">
+                <form th:action="@{/pedidos/save}" method="post">
                   <div class='modal-header'>
-                    <h5 class='modal-title' id='mAddProducts'>Agregar Producto</h5>
+                    <h5 class='modal-title' id='mAddOrder'>Agregar Pedido</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                   </div>
                   <div class='modal-body'>
                     <div class='container container-fluid'>
                       <div class='row gy-3'>
-                        <div class='col-12 col-md-6'>
-                          <label for='nombre'>Nombre</label>
-                          <input type='text' class='form-control' id='nombre' name="nombre"
-                            placeholder="Escriba el nombre del producto" required>
-                        </div>
-                        <div class='col-12 col-md-6'>
-                          <label for='price'>Precio</label>
-                          <div class="input-group mb-3">
-                            <span class="input-group-text">S/.</span>
-                            <input type="number" class="form-control" id="precio" name="precio" aria-label="price"
-                              step="0.01" min="0">
+                        <div class='col-12 col-lg-4'>
+                          <label for='nombre'>DNI Cliente</label>
+                          <div class="input-group">
+                            <input type='text' class='form-control' id='dniAdd' name="dni_cliente"
+                              placeholder="Ingrese DNI" required>
+                            <button class="btn btn-secondary" type="button" id="button-addon1">Buscar</button>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <label for='tipo_usuario'>Categoria</label>
-                          <select class="form-control form-select" id="categoria" name="categoria_id" required>
-                            <option value="" disabled selected>Seleccione una categoría</option>
-                            <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}">
-                          </select>
+                        <div class="col-6 col-lg-4">
+                          <label for='nombre'>Nombre</label>
+                          <input type='text' class='form-control-plaintext' id='nombreAdd' name='nombre'
+                            placeholder="Nombre del Cliente" disabled readonly>
                         </div>
-                        <div class='col-12 col-md-6'>
-                          <label for='descripcion_cat'>Descripción del producto</label>
-                          <textarea class='form-control' id='descripcion' name='descripcion' rows='4'
-                            required></textarea>
+                        <div class='col-6 col-lg-4'>
+                          <label for='distrito'>Distrito</label>
+                          <input type="text" class="form-control-plaintext" id="distritoAdd" name="distrito"
+                            placeholder="Distrito del Cliente" disabled readonly>
+                        </div>
+                        <div class="col-12">
+                          <label for="productoSelect">Producto</label>
+                          <div class="input-group mb-2">
+                            <input list="productosList" id="productoSelect" class="form-control"
+                              placeholder="Buscar o seleccionar producto">
+                            <datalist id="productosList">
+                              <option th:each="prod : ${productos}" th:value="${prod.nombre}" th:data-id="${prod.id}"
+                                th:data-stock="${prod.stock}" th:data-precio="${prod.precio}"></option>
+                              <option value="rack">rack</option>
+                              <option value="2">Rack de Piso 42U</option>
+                              <option value="3">Rack Industrial IP65</option>
+                              <option value="4">Rack de Techo 12U</option>
+                              <option value="5">Rack de Piso 24U</option>
+                            </datalist>
+                            <button class="btn btn-outline-primary" type="button"
+                              id="btnAgregarProducto">Agregar</button>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="stockProducto">Stock</label>
+                          <input type="text" class="form-control" id="stockProducto" disabled readonly>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="precioProducto">Precio Unitario</label>
+                          <input type="text" class="form-control" id="precioProducto" disabled readonly>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="cantidadProducto">Cantidad</label>
+                          <input type="number" class="form-control" id="cantidadProducto" min="1" value="1">
+                        </div>
+
+                        <div class="col-12">
+                          <label>Productos Añadidos</label>
+                          <div class="table-responsive">
+                            <table class="table table-bordered table-sm align-middle mb-0" id="tablaProductosVenta">
+                              <thead class="text-center">
+                                <tr>
+                                  <th>Producto</th>
+                                  <th>Cantidad</th>
+                                  <th>Precio Unitario</th>
+                                  <th>Total</th>
+                                  <th>Acción</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <!-- Aquí se agregarán dinámicamente los productos seleccionados para la venta -->
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colspan="3" class="text-end fw-bold">Total Venta:</td>
+                                  <td id="totalVenta" class="fw-bold text-end">S/ 0.00</td>
+                                  <td></td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class='modal-footer'>
-                    <button type='submit' class='btn btn-success btn-prod'>Añadir</button>
+                    <button type='submit' class='btn btn-success btn-customer link-body-emphasis'>Procesar</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          <!-- Modificar Producto -->
-          <div class='modal fade' id='modProd' tabindex='-1' aria-labelledby='mProducts' aria-hidden='true'>
+          <!-- Modificar Cliente -->
+          <div class='modal fade' id='modCustomer' tabindex='-1' aria-labelledby='mCustomer' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
               <div class='modal-content text-body-emphasis'>
-                <form th:action="@{/productos/edit}" method="post">
+                <form th:action="@{/clientes/update}" method="post">
                   <div class='modal-header'>
-                    <h5 class='modal-title' id='mCat'>Modificar Producto</h5>
+                    <h5 class='modal-title' id='mCustomer'>Modificar Cliente</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                   </div>
                   <div class='modal-body'>
                     <div class='container container-fluid'>
                       <div class='row gy-3'>
-                        <input type='hidden' name='id' value='' id='id_producto'>
-                        <div class='col-12 col-md-6'>
-                          <label for='nombre'>Nombre</label>
-                          <input type='text' class='form-control' id='nombre_producto' name="nombre"
-                            placeholder="Producto" required>
+                        <input type='hidden' name='id' value='' id='id_cliente'>
+                        <div class='col-lg-6'>
+                          <label for='nombre'>Nombre Cliente</label>
+                          <input type='text' class='form-control' id='nombre' name="nombre_cliente"
+                            placeholder="Nombre de Cliente" required>
                         </div>
-                        <div class='col-12 col-md-6'>
-                          <label for='price'>Precio <small>(p. unitario)</small></label>
-                          <div class="input-group mb-3">
-                            <span class="input-group-text">S/.</span>
-                            <input type="number" class="form-control" id="price" name="precio" aria-label="price"
-                              step="0.01" min="0">
-                          </div>
+                        <div class='col-md-6'>
+                          <label for='correo'>Correo</label>
+                          <input type='email' class='form-control' id='correo' name='correo'
+                            placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class='col-md-6'>
+                          <label for='direccion'>Dirección</label>
+                          <input type='text' class='form-control' id='direccion' name='direccion'
+                            placeholder="Direccion" required>
                         </div>
                         <div class="col-md-6">
-                          <label for='categoria'>Categoría</label>
-                          <select class="form-control form-select" id="catId" name="categoria" required>
-                            <option value="" disabled selected>Seleccione una categoría</option>
-                            <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}">
-                            </option>
-                          </select>
+                          <label for='distrito'>Distrito</label>
+                          <div th:replace="~{fragments/selects :: selectDistritos(idSelect='distritoEdit')}"></div>
                         </div>
-                        <div class='col-12 col-md-6'>
-                          <label for='descripcion_cat'>Descripción del producto</label>
-                          <textarea class='form-control' id='descrip_prod' name='descripcion' rows='4'
-                            required></textarea>
+                        <div class='col-md-6'>
+                          <label for='dni'>DNI</label>
+                          <input type='text' class='form-control' id='dniModify' name='dni'
+                            placeholder="Digite DNI de Cliente" required>
+                        </div>
+                        <div class='col-md-6'>
+                          <label for='telefono'>Celular</label>
+                          <input type='text' class='form-control' id='telefonoModify' name='telefono'
+                            placeholder="Teléfono">
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                    <button type='submit' class='btn btn-warning btn-prod'>Modificar</button>
+                    <button type='submit' class='btn btn-primary btn-customer'>Modificar</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-
-          <!-- Eliminar Producto -->
-          <div class='modal fade' id='modDelProd' tabindex='-1' aria-labelledby='mDelProd' aria-hidden='true'>
+          <!-- Eliminar cliente -->
+          <div class='modal fade' id='modDelCustomer' tabindex='-1' aria-labelledby='mDelCustomer' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>
               <div class='modal-content text-body-emphasis'>
-                <form th:action="@{/productos/delete}" method="post">
+                <form th:action="@{/clientes/delete}" method="post">
                   <div class='modal-header'>
-                    <h5 class='modal-title' id='mDelCat'>Eliminar Producto</h5>
+                    <h5 class='modal-title' id='mDelUsers'>Eliminar Cliente</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                   </div>
                   <div class='modal-body'>
                     <div class='container container-fluid text-center'>
-                      <p id="nombreProductoEliminar">#Eliminar producto</p>
-                      <input type="hidden" id="id_producto_eliminar" name="id">
+                      <p id="nombreClienteEliminar">#Eliminar cliente</p>
+                      <input type="hidden" id="id_cliente_eliminar" name="id_cliente_eliminar">
                     </div>
                   </div>
                   <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
-                    <button type='submit' class='btn btn-danger btn-cat'>Eliminar</button>
+                    <button type='submit' class='btn btn-danger btn-user'>Eliminar</button>
                   </div>
                 </form>
               </div>
@@ -467,39 +526,41 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const btnsEditar = document.querySelectorAll(".btnEditarProducto");
+      const deleteButtons = document.querySelectorAll('.btnDelCustomer');
 
-      btnsEditar.forEach(btn => {
-        btn.addEventListener("click", function () {
+      deleteButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
           const id = this.dataset.id;
           const nombre = this.dataset.nombre;
-          const descripcion = this.dataset.descripcion;
-          const precio = this.dataset.precio;
-          const categoria = this.dataset.categoria;
 
-          // Llenar campos del modal
-          document.getElementById("id_producto").value = id;
-          document.getElementById("nombre_producto").value = nombre;
-          document.getElementById("descrip_prod").value = descripcion;
-          document.getElementById("price").value = precio;
-          document.getElementById("catId").value = categoria;
+          document.getElementById('id_cliente_eliminar').value = id;
+          document.getElementById('nombreClienteEliminar').textContent = `¿Está seguro de eliminar al cliente: ${nombre}?`;
         });
       });
     });
   </script>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const btnsEliminar = document.querySelectorAll(".btnDelProd");
+    document.getElementById("button-addon1").addEventListener("click", function () {
+      const dni = document.getElementById("dniAdd").value.trim();
+      if (!dni) {
+        alert("Ingrese un DNI");
+        return;
+      }
 
-      btnsEliminar.forEach(btn => {
-        btn.addEventListener("click", function () {
-          const id = this.dataset.id;
-          const nombre = this.dataset.nombre;
-
-          document.getElementById("id_producto_eliminar").value = id;
-          document.getElementById("nombreProductoEliminar").innerText = `¿Estás seguro de eliminar "${nombre}"?`;
+      fetch(`/clientes/buscar?dni=${dni}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Cliente no encontrado");
+          return res.json();
+        })
+        .then(cliente => {
+          document.getElementById("nombreAdd").value = cliente.nombre;
+          document.getElementById("distritoAdd").value = cliente.distrito;
+        })
+        .catch(err => {
+          alert("No se encontró el cliente con el DNI ingresado.");
+          document.getElementById("nombreAdd").value = "";
+          document.getElementById("distritoAdd").value = "";
         });
-      });
     });
   </script>
 </body>

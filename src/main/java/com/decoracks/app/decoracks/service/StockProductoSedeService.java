@@ -9,4 +9,6 @@ public interface StockProductoSedeService {
     StockProductoSede findById(int id);
     StockProductoSede save(StockProductoSede stock);
     void deleteById(int id);
+    List<StockProductoSede> findBySedeId(int sedeId);
+    StockProductoSede findByProductoAndSede(int productoId, int sedeId);
 }

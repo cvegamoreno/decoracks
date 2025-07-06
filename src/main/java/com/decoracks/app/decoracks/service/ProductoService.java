@@ -14,4 +14,5 @@ public interface ProductoService {
     Optional<Producto> get(int id);
     void deleteById(int id);
     Producto update(int id, Producto producto);
+    Producto findById(int id);
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="selectDistritos">
+        
+        <th:block th:fragment="selectDistritos(idSelect)">
+            <select th:id="${idSelect}" th:name="distrito" class="form-select">
+                <option value="" disabled selected>Seleccione un distrito</option>
+                <option th:each="d : ${distritos}" th:value="${d}" th:text="${d}"></option>
+            </select>
+        </th:block>
+    </div>
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Categorias</title>
+  <title>Stock</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Google Web Fonts -->
@@ -54,7 +54,7 @@
           </a>
         </li>
         <li>
-          <a href="/categorias" class="nav-link active" aria-current="page">
+          <a href="/categorias" class="nav-link" aria-current="page">
             <i class="fa-solid fa-list me-2"></i>
             Categorias
           </a>
@@ -66,7 +66,7 @@
           </a>
         </li>
         <li>
-          <a href="/stock" class="nav-link">
+          <a href="/stock" class="nav-link active">
             <i class="fa-solid fa-box-open me-2"></i>
             Stock
           </a>
@@ -132,8 +132,8 @@
           </a>
         </li>
         <li>
-          <a href="/dashboard" class="nav-link py-3 border-bottom rounded-0" title="Dashboard"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/dashboard" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
           </a>
         </li>
@@ -144,20 +144,20 @@
           </a>
         </li>
         <li>
-          <a href="/productos" class="nav-link active py-3 border-bottom rounded-0" title="Productos"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/productos" class="nav-link py-3 border-bottom rounded-0" title="Productos" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-cart-flatbed"></i>
           </a>
         </li>
         <li>
-          <a href="/stock" class="nav-link py-3 border-bottom rounded-0" title="Stock" data-bs-toggle="tooltip"
+          <a href="/stock" class="nav-link active py-3 border-bottom rounded-0" title="Stock" data-bs-toggle="tooltip"
             data-bs-placement="right">
             <i class="fa-solid fa-box-open"></i>
           </a>
         </li>
         <li>
-          <a href="/clientes" class="nav-link py-3 border-bottom rounded-0" title="Clientes"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/clientes" class="nav-link py-3 border-bottom rounded-0" title="Clientes" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-people-group"></i>
           </a>
         </li>
@@ -174,8 +174,8 @@
           </a>
         </li>
         <li>
-          <a href="/entregas" class="nav-link py-3 border-bottom rounded-0" title="Entregas"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/entregas" class="nav-link py-3 border-bottom rounded-0" title="Entregas" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-truck-fast"></i>
           </a>
         </li>
@@ -204,7 +204,8 @@
           class="d-flex align-items-left align-items-md-center flex-column flex-md-row py-4 mb-1 sticky-top bg-body-tertiary border-bottom">
           <div class="text-body-emphasis">
             <h3 class="fw-bold mb-3">Stock</h3>
-            <h6 class="mb-2">Stock de Sede: </h6>
+            <h6 class="mb-2">Stock de: <span class="text-primary" th:text="${sedeActual.nombre}">Nombre Sede</span></h6>
+            <p class="text-muted" th:text="'Dirección: ' + ${sedeActual.direccion}"></p>
           </div>
           <div class="ms-md-auto py-2 py-md-0 justify-content-between row text-center">
             <div class="col">
@@ -212,7 +213,7 @@
             </div>
             <div class="col">
               <a href="#" class="btn btn-primary btn-round link-body-emphasis" data-bs-toggle='modal'
-                data-bs-target='#modAddProducts'>Agregar</a>
+                title="Agregar Stock" data-bs-target='#modAddProducts'>Agregar</a>
             </div>
           </div>
         </div>
@@ -227,51 +228,25 @@
                 <table class="table table-hover table-striped table-bordered m-auto">
                   <thead class="text-center">
                     <tr>
-                      <th scope="col">Nombre</th>
+                      <th scope="col">#</th>
+                      <th scope="col">Producto</th>
                       <th scope="col">Categoría</th>
                       <th scope="col">Cantidad</th>
                       <th scope="col">Accion</th>
                     </tr>
                   </thead>
-                  <tbody id="tProducts" class="text-start table-group-divider align-middle">
-                    <tr>
-                      <td>Rack de Pared 6U con Puerta</td>
-                      <td>Rack de pared</td>
-                      <td>20</td>
+                  <tbody id="tSede" class="text-start table-group-divider align-middle">
+                    <tr th:each="sps, iterStat : ${stockSede}">
+                      <td th:text="${iterStat.count}">1</td>
+                      <td th:text="${sps.producto.nombre}">Producto</td>
+                      <td th:text="${sps.producto.categoria.nombre}">Categoría</td>
+                      <td th:text="${sps.stock}">0</td>
                       <td class="text-center">
                         <div class='form-button-action'>
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modProd' title=''
-                            class='btn btn-outline-warning btnEditarProducto' data-original-title='Edit Product'
-                            data-id='${Producto.id}' data-nombre='${producto.nombre_producto}'
-                            data-descripcion='${categoria.descrip_categoria}'>
-                            <i class='fa fa-edit'></i>
-                          </button>
-
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelProd'
-                            class='btn btn-outline-danger btnDelProd' data-id='${producto.id}'
-                            data-nombre='${categoria.nombre_categoria}'>
-                            <i class='fa fa-times'></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rack Modular Expandible 12U</td>
-                      <td>Rack Modular</td>
-                      <td>5</td>
-                      <td class="text-center">
-                        <div class='form-button-action'>
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modProd' title=''
-                            class='btn btn-outline-warning btnEditarProducto' data-original-title='Edit Product'
-                            data-id='${Producto.id}' data-nombre='${producto.nombre_producto}'
-                            data-descripcion='${categoria.descrip_categoria}'>
-                            <i class='fa fa-edit'></i>
-                          </button>
-
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modDelProd'
-                            class='btn btn-outline-danger btnDelProd' data-id='${producto.id}'
-                            data-nombre='${categoria.nombre_categoria}'>
-                            <i class='fa fa-times'></i>
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modEditStock'
+                            th:title="'Editar ' + ${sps.producto.nombre}" class='btn btn-outline-warning btnEditarStock'
+                            th:attr="data-id=${sps.id}, data-nombre=${sps.producto.nombre}, data-stock=${sps.stock}">
+                            <i class='fa fa-edit'> Editar</i>
                           </button>
                         </div>
                       </td>
@@ -285,41 +260,32 @@
               2 days ago
             </div> -->
           </div>
-          <!-- Agregar Producto -->
+          <!-- Agregar Stock -->
           <div class='modal fade' id='modAddProducts' tabindex='-1' aria-labelledby='mAddProducts' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
               <div class='modal-content text-body-emphasis'>
-                <form id="formAddProductsForm">
+                <form th:action="@{/stock/guardar}" method="post">
                   <div class='modal-header'>
-                    <h5 class='modal-title' id='mAddProducts'>Agregar Producto</h5>
+                    <h5 class='modal-title' id='mAddProducts'>Agregar Stock</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                   </div>
                   <div class='modal-body'>
                     <div class='container container-fluid'>
                       <div class='row gy-3'>
                         <div class='col-12 col-md-6'>
-                          <label for='nombre'>Nombre</label>
-                          <input type='text' class='form-control' id='nombreAdd' name="nombre_producto"
-                            placeholder="Escriba el nombre del producto" required>
-                        </div>
-                        <div class='col-12 col-md-6'>
-                          <label for='price'>Precio</label>
-                          <div class="input-group mb-3">
-                            <span class="input-group-text">S/.</span>
-                            <input type="number" class="form-control" id="priceAdd" aria-label="price" step="0.01" min="0">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for='tipo_usuario'>Categoria</label>
-                          <select class="form-control form-select" id="catId" name="catId" required>
-                            <option value="1">Rack de techo</option>
-                            <option value="2">Rack de pared</option>
+                          <label for='productoId'>Producto</label>
+                          <select class="form-control form-select" id="nombre" name="productoId" required>
+                            <option value="" disabled selected>Seleccione un producto</option>
+                            <option th:each="p : ${productos}" th:value="${p.id}" th:text="${p.nombre}"></option>
                           </select>
                         </div>
                         <div class='col-12 col-md-6'>
-                          <label for='descripcion_cat'>Descripción del producto</label>
-                          <textarea class='form-control' id='descripAdd_prod' name='descrip_prod' rows='4'
-                            required></textarea>
+                          <label for='stock'>Stock</label>
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">#</span>
+                            <input type="number" class="form-control" id="stock" name="stock" aria-label="stock" min="0"
+                              required>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -331,72 +297,32 @@
               </div>
             </div>
           </div>
-          <!-- Modificar Producto -->
-          <div class='modal fade' id='modProd' tabindex='-1' aria-labelledby='mProducts' aria-hidden='true'>
-            <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
-              <div class='modal-content text-body-emphasis'>
-                <form id="formModifyProd">
-                  <div class='modal-header'>
-                    <h5 class='modal-title' id='mCat'>Modificar Producto</h5>
-                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                  </div>
-                  <div class='modal-body'>
-                    <div class='container container-fluid'>
-                      <div class='row gy-3'>
-                        <input type='hidden' name='id_producto' value='' id='id_producto'>
-                        <div class='col-12 col-md-6'>
-                          <label for='nombre'>Nombre</label>
-                          <input type='text' class='form-control' id='nombre' name="nombre_producto"
-                            placeholder="Producto" required>
-                        </div>
-                        <div class='col-12 col-md-6'>
-                          <label for='price'>Precio <small>(p. unitario)</small></label>
-                          <div class="input-group mb-3">
-                            <span class="input-group-text">S/.</span>
-                            <input type="number" class="form-control" id="price" aria-label="price" step="0.01" min="0">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for='tipo_usuario'>Categoria</label>
-                          <select class="form-control form-select" id="catId" name="catId" required>
-                            <option value="1">Rack de techo</option>
-                            <option value="2">Rack de pared</option>
-                          </select>
-                        </div>
-                        <div class='col-12 col-md-6'>
-                          <label for='descripcion_cat'>Descripción del producto</label>
-                          <textarea class='form-control' id='descrip_prod' name='descrip_prod' rows='4'
-                            required></textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                    <button type='submit' class='btn btn-warning btn-prod'>Modificar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- Eliminar Producto -->
-          <div class='modal fade' id='modDelProd' tabindex='-1' aria-labelledby='mDelProd' aria-hidden='true'>
+          <!-- Editar Stock -->
+          <div class='modal fade' id='modEditStock' tabindex='-1' aria-labelledby='mEditStock' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>
               <div class='modal-content text-body-emphasis'>
-                <form id="confirmacionEliminarForm">
+                <form th:action="@{/stock/editar}" method="post">
                   <div class='modal-header'>
-                    <h5 class='modal-title' id='mDelCat'>Eliminar Producto</h5>
+                    <h5 class='modal-title' id='mEditStock'>Editando: </h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                   </div>
                   <div class='modal-body'>
                     <div class='container container-fluid text-center'>
-                      <p id="nombreCategoriaEliminar">#Eliminar producto</p>
-                      <input type="hidden" id="id_categoria_eliminar" name="id_categoria_eliminar">
+                      <p id="nombreProductoEditar">#Editar stock</p>
+                      <input type="hidden" id="id_stock_editar" name="id">
+                      <div class='col-12'>
+                          <label for='stock'>Stock</label>
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">#</span>
+                            <input type="number" class="form-control" id="stock_edit" name="stock" aria-label="stock" min="0"
+                              required>
+                          </div>
+                        </div>
                     </div>
                   </div>
                   <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
-                    <button type='submit' class='btn btn-danger btn-cat'>Eliminar</button>
+                    <button type='submit' class='btn btn-warning btn-cat'>Editar</button>
                   </div>
                 </form>
               </div>
@@ -480,6 +406,23 @@
     window.addEventListener('DOMContentLoaded', adjustSidebarOnLoad);
     window.addEventListener('resize', adjustSidebarOnLoad);
   </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const botonesEditar = document.querySelectorAll(".btnEditarStock");
+
+    botonesEditar.forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = this.dataset.id;
+        const nombre = this.dataset.nombre;
+        const stock = this.dataset.stock;
+
+        document.getElementById("id_stock_editar").value = id;
+        document.getElementById("stock_edit").value = stock;
+        document.getElementById("nombreProductoEditar").textContent = nombre;
+      });
+    });
+  });
+</script>
 
 </body>
 

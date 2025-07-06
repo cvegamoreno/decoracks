@@ -34,11 +34,14 @@ public class Venta {
     @Column(name = "estado_actual")
     private EstadoVenta estadoActual;
 
+    @Column(name = "total")
+    private double total;
+
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
     private List<DetalleVenta> detalles;
 
     public enum EstadoVenta {
-        pendiente, asignado, en_reparto, entregado, cancelado
+        pendiente, pagado, asignado, en_reparto, entregado, cancelado
     }
 
     public Venta() {
@@ -112,6 +115,14 @@ public class Venta {
         this.estadoActual = estadoActual;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     public List<DetalleVenta> getDetalles() {
         return detalles;
     }
@@ -120,4 +131,3 @@ public class Venta {
         this.detalles = detalles;
     }
 }
-

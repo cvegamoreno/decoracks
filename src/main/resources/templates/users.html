@@ -132,8 +132,8 @@
           </a>
         </li>
         <li>
-          <a href="/dashboard" class="nav-link py-3 border-bottom rounded-0" title="Dashboard"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/dashboard" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
           </a>
         </li>
@@ -144,8 +144,8 @@
           </a>
         </li>
         <li>
-          <a href="/productos" class="nav-link py-3 border-bottom rounded-0" title="Productos"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/productos" class="nav-link py-3 border-bottom rounded-0" title="Productos" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-cart-flatbed"></i>
           </a>
         </li>
@@ -156,8 +156,8 @@
           </a>
         </li>
         <li>
-          <a href="/clientes" class="nav-link py-3 border-bottom rounded-0" title="Clientes"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/clientes" class="nav-link py-3 border-bottom rounded-0" title="Clientes" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-people-group"></i>
           </a>
         </li>
@@ -174,8 +174,8 @@
           </a>
         </li>
         <li>
-          <a href="/entregas" class="nav-link py-3 border-bottom rounded-0" title="Entregas"
-            data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="/entregas" class="nav-link py-3 border-bottom rounded-0" title="Entregas" data-bs-toggle="tooltip"
+            data-bs-placement="right">
             <i class="fa-solid fa-truck-fast"></i>
           </a>
         </li>
@@ -242,17 +242,15 @@
                       <td th:text="${u.sede.nombre}">Centro</td>
                       <td class="text-center">
                         <div class='form-button-action'>
-                          <button type='button' data-bs-toggle='modal' data-bs-target='#modUsers' title=''
-                            class='btn btn-link btn-warning btnEditarUsuario text-body-emphasis'
-                            data-original-title='Edit Task' data-id='${usuario.id}'
-                            data-nombre='${usuario.nombre_usuario}' data-correo='${usuario.correo}'
-                            data-tipo='${usuario.tipo_usuario}'>
+                          <button type='button' data-bs-toggle='modal' data-bs-target='#modUsers'
+                            th:title="'Editar '+ ${u.nombre}" class='btn btn-outline-warning btnEditarUsuario'
+                            th:attr="data-id=${u.id}, data-nombre=${u.nombre}, data-email=${u.email}, data-rol=${u.rol}, data-sede=${u.sede.id}">
                             <i class='fa fa-edit'></i>
                           </button>
 
                           <button type='button' data-bs-toggle='modal' data-bs-target='#modDelUsers'
-                            class='btn btn-outline-danger btnDelUsers' data-id='${usuario.id}'
-                            data-nombre='${usuario.nombre_usuario}'>
+                            th:title="'Eliminar '+  ${u.nombre}" class='btn btn-outline-danger btnDelUsers'
+                            th:attr="data-id=${u.id}, data-nombre=${u.nombre}">
                             <i class='fa fa-times'></i>
                           </button>
                         </div>
@@ -280,7 +278,7 @@
                       <div class='row gy-3'>
                         <div class='col-lg-6'>
                           <label for='nombre'>Nombre Usuario</label>
-                          <input type='text' class='form-control' id='nombreAdd' name="nombre"
+                          <input type='text' class='form-control' id='nombreAdd' name="nombre_usuario"
                             placeholder="Nombre de Usuario" required>
                         </div>
                         <div class='col-md-6'>
@@ -299,7 +297,7 @@
                             placeholder="Confirmar Contraseña" required>
                         </div>
                         <div class="col-md-6">
-                          <label for='tipo_usuario'>Tipo de Usuario</label>
+                          <label for='rolAdd'>Tipo de Usuario</label>
                           <select class="form-control form-select" id="rolAdd" name="rol" required>
                             <option value="administrador">Administrador</option>
                             <option value="jefe_sede">Jefe de Sede</option>
@@ -310,9 +308,8 @@
                         <div class="col-md-6">
                           <label for='tipo_usuario'>Sede</label>
                           <select class="form-control form-select" id="tipo_usuarioAdd" name="sede_id" required>
-                            <option value="1">Centro</option>
-                            <option value="2">Miraflores</option>
-                            <option value="surco">Surco</option>
+                            <option value="" disabled selected>Seleccione una Sede</option>
+                            <option th:each="sede : ${sedes}" th:value="${sede.id}" th:text="${sede.nombre}">
                           </select>
                         </div>
                       </div>
@@ -329,7 +326,7 @@
           <div class='modal fade' id='modUsers' tabindex='-1' aria-labelledby='mUsers' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg'>
               <div class='modal-content text-body-emphasis'>
-                <form id="formModifyUser">
+                <form th:action="@{/usuarios/update}" method="post">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mUsers'>Modificar Usuario</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -337,20 +334,20 @@
                   <div class='modal-body'>
                     <div class='container container-fluid'>
                       <div class='row gy-3'>
-                        <input type='hidden' name='id_usuario' value='' id='id_usuario'>
+                        <input type='hidden' name='id' value='' id='id_usuario'>
                         <div class='col-lg-6'>
-                          <label for='nombre'>Nombre Usuario</label>
-                          <input type='text' class='form-control' id='nombre' name="nombre_usuario"
+                          <label for='nombreModify'>Nombre Usuario</label>
+                          <input type='text' class='form-control' id='nombreModify' name="nombre_usuario"
                             placeholder="Nombre de Usuario" required>
                         </div>
                         <div class='col-md-6'>
-                          <label for='correo'>Correo</label>
-                          <input type='email' class='form-control' id='correo' name='correo'
+                          <label for='emailModify'>Correo</label>
+                          <input type='email' class='form-control' id='emailModify' name='email'
                             placeholder="Correo Electrónico" required>
                         </div>
                         <div class='col-md-6'>
                           <label for='contrasenaModify'>Contraseña</label>
-                          <input type='password' class='form-control' id='contrasenaModify' name='contrasena'
+                          <input type='password' class='form-control' id='contrasenaModify' name='password'
                             placeholder="Contraseña">
                         </div>
                         <div class='col-md-6'>
@@ -359,8 +356,8 @@
                             id="confirmContrasenaModify" placeholder="Confirmar Contraseña">
                         </div>
                         <div class="col-md-6">
-                          <label for='tipo_usuario'>Tipo de Usuario</label>
-                          <select class="form-control form-select" id="tipo_usuario" name="tipo_usuario" required>
+                          <label for='rolModify'>Tipo de Usuario</label>
+                          <select class="form-control form-select" id="rolModify" name="rol" required>
                             <option value="administrador">Administrador</option>
                             <option value="jefe_sede">Jefe de Sede</option>
                             <option value="vendedor">Vendedor</option>
@@ -368,11 +365,10 @@
                           </select>
                         </div>
                         <div class="col-md-6">
-                          <label for='sede_usuario'>Sede</label>
-                          <select class="form-control form-select" id="sede_usuario" name="sede_usuario" required>
-                            <option value="centro">Centro</option>
-                            <option value="miraflores">Miraflores</option>
-                            <option value="surco">Surco</option>
+                          <label for='sede_usuarioModify'>Sede</label>
+                          <select class="form-control form-select" id="sede_usuarioModify" name="sede_id" required>
+                            <option value="" disabled selected>Seleccione una Sede</option>
+                            <option th:each="sede : ${sedes}" th:value="${sede.id}" th:text="${sede.nombre}">
                           </select>
                         </div>
                       </div>
@@ -390,7 +386,7 @@
           <div class='modal fade' id='modDelUsers' tabindex='-1' aria-labelledby='mDelUsers' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>
               <div class='modal-content text-body-emphasis'>
-                <form id="confirmacionEliminarForm">
+                <form th:action="@{/usuarios/delete}" method="post">
                   <div class='modal-header'>
                     <h5 class='modal-title' id='mDelUsers'>Eliminar Usuario</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -417,8 +413,8 @@
   <!-- Theme -->
   <div class="theme-container text-center mt-5">
     <div class="dropdown">
-      <button class="btn btn-primary theme-btn py-2 dropdown-toggle align-items-center link-body-emphasis" type="button" id="themeDropdown"
-        data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn btn-primary theme-btn py-2 dropdown-toggle align-items-center link-body-emphasis" type="button"
+        id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i id="themeIcon" class="bi bi-moon-stars"></i>
       </button>
       <ul class="dropdown-menu shadow border-primary" aria-labelledby="themeDropdown">
@@ -487,6 +483,45 @@
     window.addEventListener('DOMContentLoaded', adjustSidebarOnLoad);
     window.addEventListener('resize', adjustSidebarOnLoad);
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const btnEditarUsuario = document.querySelectorAll('.btnEditarUsuario');
+
+      btnEditarUsuario.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const id = this.dataset.id;
+          const nombre = this.dataset.nombre;
+          const email = this.dataset.email;
+          const rol = this.dataset.rol;
+          const sede = this.dataset.sede;
+
+          document.getElementById('id_usuario').value = id;
+          document.getElementById('nombreModify').value = nombre;
+          document.getElementById('emailModify').value = email;
+          document.getElementById('contrasenaModify').value = '';
+          document.getElementById('confirmContrasenaModify').value = '';
+          document.getElementById('rolModify').value = rol;
+          document.getElementById('sede_usuarioModify').value = sede;
+        });
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const btnDelUsers = document.querySelectorAll('.btnDelUsers');
+
+      btnDelUsers.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const id = this.dataset.id;
+          const nombre = this.dataset.nombre;
+
+          document.getElementById('id_usuario_eliminar').value = id;
+          document.getElementById('nombreUsuarioEliminar').textContent = `¿Está seguro de eliminar al usuario ${nombre}?`;
+        });
+      });
+    });
+  </script>
 
 </body>
+
 </html>
