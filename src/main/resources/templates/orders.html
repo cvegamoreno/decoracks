@@ -305,16 +305,13 @@
                         <div class="col-12">
                           <label for="productoSelect">Producto</label>
                           <div class="input-group mb-2">
+                            <input type="hidden" id="productosData" th:data-productos='${productosJson}' />
+
+                            <!-- Selección de productos -->
                             <input list="productosList" id="productoSelect" class="form-control"
-                              placeholder="Buscar o seleccionar producto">
+                              placeholder="Buscar producto">
                             <datalist id="productosList">
-                              <option th:each="prod : ${productos}" th:value="${prod.nombre}" th:data-id="${prod.id}"
-                                th:data-stock="${prod.stock}" th:data-precio="${prod.precio}"></option>
-                              <option value="rack">rack</option>
-                              <option value="2">Rack de Piso 42U</option>
-                              <option value="3">Rack Industrial IP65</option>
-                              <option value="4">Rack de Techo 12U</option>
-                              <option value="5">Rack de Piso 24U</option>
+                              <option th:each="p : ${productos}" th:value="${p.nombre}">[[${p.nombre}]]</option>
                             </datalist>
                             <button class="btn btn-outline-primary" type="button"
                               id="btnAgregarProducto">Agregar</button>
@@ -563,6 +560,68 @@
         });
     });
   </script>
+  <script>
+    const productos = JSON.parse(document.getElementById('productosData').dataset.productos);
+    const tabla = document.getElementById('tablaProductosVenta').querySelector('tbody');
+    const totalVenta = document.getElementById('totalVenta');
+    let total = 0;
+
+    document.getElementById('productoSelect').addEventListener('input', function () {
+      const nombre = this.value;
+      const producto = productos.find(p => p.nombre === nombre);
+      if (producto) {
+        document.getElementById('stockProducto').value = producto.stock;
+        document.getElementById('precioProducto').value = producto.precio;
+      } else {
+        document.getElementById('stockProducto').value = '';
+        document.getElementById('precioProducto').value = '';
+      }
+    });
+
+    document.getElementById('btnAgregarProducto').addEventListener('click', () => {
+      const nombre = document.getElementById('productoSelect').value;
+      const producto = productos.find(p => p.nombre === nombre);
+      const cantidad = parseInt(document.getElementById('cantidadProducto').value);
+
+      if (!producto || isNaN(cantidad) || cantidad < 1 || cantidad > producto.stock) {
+        alert("Producto no válido o stock insuficiente");
+        return;
+      }
+
+      const subtotal = cantidad * producto.precio;
+      total += subtotal;
+
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+      <td>${producto.nombre}</td>
+      <td>${cantidad}</td>
+      <td>S/ ${producto.precio.toFixed(2)}</td>
+      <td>S/ ${subtotal.toFixed(2)}</td>
+      <td><button type="button" class="btn btn-danger btn-sm">Quitar</button></td>
+      <input type="hidden" name="productos[]" value="${producto.id}">
+      <input type="hidden" name="cantidades[]" value="${cantidad}">
+    `;
+      tabla.appendChild(fila);
+      totalVenta.textContent = 'S/ ' + total.toFixed(2);
+
+      // Reset campos
+      document.getElementById('productoSelect').value = '';
+      document.getElementById('stockProducto').value = '';
+      document.getElementById('precioProducto').value = '';
+      document.getElementById('cantidadProducto').value = 1;
+    });
+
+    tabla.addEventListener('click', (e) => {
+      if (e.target.classList.contains('btn-danger')) {
+        const fila = e.target.closest('tr');
+        const subtotal = parseFloat(fila.children[3].textContent.replace('S/ ', ''));
+        total -= subtotal;
+        totalVenta.textContent = 'S/ ' + total.toFixed(2);
+        fila.remove();
+      }
+    });
+  </script>
+
 </body>
 
 </html>
