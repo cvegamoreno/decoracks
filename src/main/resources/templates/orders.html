@@ -305,7 +305,7 @@
                         <div class="col-12">
                           <label for="productoSelect">Producto</label>
                           <div class="input-group mb-2">
-                            <input type="hidden" id="productosData" th:data-productos='${productosJson}' />
+                            <input type="hidden" id="productosData" th:attr="data-productos=${productosJson}" />
 
                             <!-- Selección de productos -->
                             <input list="productosList" id="productoSelect" class="form-control"
@@ -520,22 +520,6 @@
     window.addEventListener('DOMContentLoaded', adjustSidebarOnLoad);
     window.addEventListener('resize', adjustSidebarOnLoad);
   </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const deleteButtons = document.querySelectorAll('.btnDelCustomer');
-
-      deleteButtons.forEach(btn => {
-        btn.addEventListener('click', function () {
-          const id = this.dataset.id;
-          const nombre = this.dataset.nombre;
-
-          document.getElementById('id_cliente_eliminar').value = id;
-          document.getElementById('nombreClienteEliminar').textContent = `¿Está seguro de eliminar al cliente: ${nombre}?`;
-        });
-      });
-    });
-  </script>
   <script>
     document.getElementById("button-addon1").addEventListener("click", function () {
       const dni = document.getElementById("dniAdd").value.trim();
@@ -561,66 +545,83 @@
     });
   </script>
   <script>
-    const productos = JSON.parse(document.getElementById('productosData').dataset.productos);
-    const tabla = document.getElementById('tablaProductosVenta').querySelector('tbody');
-    const totalVenta = document.getElementById('totalVenta');
-    let total = 0;
+  const productos = JSON.parse(document.getElementById('productosData').dataset.productos);
+  const tabla = document.getElementById('tablaProductosVenta').querySelector('tbody');
+  const totalVenta = document.getElementById('totalVenta');
+  let total = 0;
 
-    document.getElementById('productoSelect').addEventListener('input', function () {
-      const nombre = this.value;
-      const producto = productos.find(p => p.nombre === nombre);
-      if (producto) {
-        document.getElementById('stockProducto').value = producto.stock;
-        document.getElementById('precioProducto').value = producto.precio;
-      } else {
-        document.getElementById('stockProducto').value = '';
-        document.getElementById('precioProducto').value = '';
-      }
-    });
+  // Cuando el usuario selecciona un producto
+  document.getElementById('productoSelect').addEventListener('input', function () {
+    const nombre = this.value;
+    const producto = productos.find(p => p.nombre === nombre);
+    if (producto) {
+      document.getElementById('stockProducto').value = producto.stock;
+      document.getElementById('precioProducto').value = producto.precio;
+    } else {
+      document.getElementById('stockProducto').value = '';
+      document.getElementById('precioProducto').value = '';
+    }
+  });
 
-    document.getElementById('btnAgregarProducto').addEventListener('click', () => {
-      const nombre = document.getElementById('productoSelect').value;
-      const producto = productos.find(p => p.nombre === nombre);
-      const cantidad = parseInt(document.getElementById('cantidadProducto').value);
+  // Cuando hace click en "Agregar"
+  document.getElementById('btnAgregarProducto').addEventListener('click', () => {
+    const nombre = document.getElementById('productoSelect').value;
+    const producto = productos.find(p => p.nombre === nombre);
+    const cantidad = parseInt(document.getElementById('cantidadProducto').value);
 
-      if (!producto || isNaN(cantidad) || cantidad < 1 || cantidad > producto.stock) {
-        alert("Producto no válido o stock insuficiente");
-        return;
-      }
+    if (!producto || isNaN(cantidad) || cantidad < 1 || cantidad > producto.stock) {
+      alert("Producto no válido o stock insuficiente");
+      return;
+    }
 
-      const subtotal = cantidad * producto.precio;
-      total += subtotal;
+    // Verificar si el producto ya fue agregado
+    const yaExiste = Array.from(tabla.querySelectorAll('input[name="productos[]"]'))
+      .some(input => parseInt(input.value) === producto.id);
 
-      const fila = document.createElement('tr');
-      fila.innerHTML = `
-      <td>${producto.nombre}</td>
-      <td>${cantidad}</td>
+    if (yaExiste) {
+      alert("Este producto ya fue agregado.");
+      return;
+    }
+
+    const subtotal = cantidad * producto.precio;
+    total += subtotal;
+
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td>
+        ${producto.nombre}
+        <input type="hidden" name="productos[]" value="${producto.id}">
+      </td>
+      <td>
+        ${cantidad}
+        <input type="hidden" name="cantidades[]" value="${cantidad}">
+      </td>
       <td>S/ ${producto.precio.toFixed(2)}</td>
       <td>S/ ${subtotal.toFixed(2)}</td>
       <td><button type="button" class="btn btn-danger btn-sm">Quitar</button></td>
-      <input type="hidden" name="productos[]" value="${producto.id}">
-      <input type="hidden" name="cantidades[]" value="${cantidad}">
     `;
-      tabla.appendChild(fila);
+    tabla.appendChild(fila);
+    totalVenta.textContent = 'S/ ' + total.toFixed(2);
+
+    // Reset de campos
+    document.getElementById('productoSelect').value = '';
+    document.getElementById('stockProducto').value = '';
+    document.getElementById('precioProducto').value = '';
+    document.getElementById('cantidadProducto').value = 1;
+  });
+
+  // Eliminar fila de producto
+  tabla.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-danger')) {
+      const fila = e.target.closest('tr');
+      const subtotal = parseFloat(fila.children[3].textContent.replace('S/ ', ''));
+      total -= subtotal;
       totalVenta.textContent = 'S/ ' + total.toFixed(2);
+      fila.remove();
+    }
+  });
+</script>
 
-      // Reset campos
-      document.getElementById('productoSelect').value = '';
-      document.getElementById('stockProducto').value = '';
-      document.getElementById('precioProducto').value = '';
-      document.getElementById('cantidadProducto').value = 1;
-    });
-
-    tabla.addEventListener('click', (e) => {
-      if (e.target.classList.contains('btn-danger')) {
-        const fila = e.target.closest('tr');
-        const subtotal = parseFloat(fila.children[3].textContent.replace('S/ ', ''));
-        total -= subtotal;
-        totalVenta.textContent = 'S/ ' + total.toFixed(2);
-        fila.remove();
-      }
-    });
-  </script>
 
 </body>
 

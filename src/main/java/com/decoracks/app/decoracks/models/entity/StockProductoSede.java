@@ -1,5 +1,7 @@
 package com.decoracks.app.decoracks.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class StockProductoSede {
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
+    @JsonIgnore
     private Producto producto;
 
     @ManyToOne

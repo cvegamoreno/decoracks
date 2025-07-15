@@ -45,4 +45,9 @@ public class StockProductoSedeServiceImpl implements StockProductoSedeService {
     public StockProductoSede findByProductoAndSede(int productoId, int sedeId) {
         return repository.findByProductoIdAndSedeId(productoId, sedeId);
     }
+
+    @Override
+    public List<StockProductoSede> findBySedeConStock(int sedeId) {
+        return repository.findBySedeConStock(sedeId);
+    }
 }

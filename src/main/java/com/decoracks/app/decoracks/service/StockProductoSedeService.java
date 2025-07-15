@@ -11,4 +11,5 @@ public interface StockProductoSedeService {
     void deleteById(int id);
     List<StockProductoSede> findBySedeId(int sedeId);
     StockProductoSede findByProductoAndSede(int productoId, int sedeId);
+    List<StockProductoSede> findBySedeConStock(int sedeId);
 }

@@ -2,7 +2,9 @@ package com.decoracks.app.decoracks.controllers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,8 @@ import com.decoracks.app.decoracks.service.SedeService;
 import com.decoracks.app.decoracks.service.StockProductoSedeService;
 import com.decoracks.app.decoracks.service.UsuarioService;
 import com.decoracks.app.decoracks.service.VentaService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -36,10 +40,10 @@ public class OrdersController {
     private final StockProductoSedeService stockService;
 
     public OrdersController(ClienteService clienteService,
-                            ProductoService productoService,
-                            VentaService ventaService,
-                            DetalleVentaService detalleVentaService,
-                            StockProductoSedeService stockService) {
+            ProductoService productoService,
+            VentaService ventaService,
+            DetalleVentaService detalleVentaService,
+            StockProductoSedeService stockService) {
         this.clienteService = clienteService;
         this.productoService = productoService;
         this.ventaService = ventaService;
@@ -102,12 +106,31 @@ public class OrdersController {
         venta.setTotal(totalVenta);
         ventaService.save(venta);
 
-        return "redirect:/ventas"; // O como sea tu ruta de éxito
+        return "redirect:/pedidos"; // O como sea tu ruta de éxito
     }
 
     @GetMapping("")
-    public String listar(Model model) {
-        model.addAttribute("productos", productoService.findAll());
+    public String listar(Model model) throws JsonProcessingException {
+        int sedeId = 2; // Para pruebas
+
+        List<StockProductoSede> stockProductos = stockService.findBySedeConStock(sedeId);
+
+        // Filtrar y convertir a DTO plano para evitar bucles infinitos
+        List<Map<String, Object>> productosDTO = stockProductos.stream().map(s -> {
+            Map<String, Object> prod = new HashMap<>();
+            prod.put("id", s.getProducto().getId());
+            prod.put("nombre", s.getProducto().getNombre());
+            prod.put("precio", s.getProducto().getPrecio());
+            prod.put("stock", s.getStock());
+            return prod;
+        }).toList();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String productosJson = mapper.writeValueAsString(productosDTO);
+
+        model.addAttribute("productos", productosDTO);
+        model.addAttribute("productosJson", productosJson);
+
         return "orders";
     }
 

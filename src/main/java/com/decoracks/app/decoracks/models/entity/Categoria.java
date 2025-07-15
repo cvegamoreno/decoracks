@@ -3,6 +3,8 @@ package com.decoracks.app.decoracks.models.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categorias")
 public class Categoria {
@@ -15,6 +17,7 @@ public class Categoria {
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
     private List<Producto> productos;
 
     public Categoria() {
@@ -69,5 +72,5 @@ public class Categoria {
     public String toString() {
         return "Categoria [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
     }
-    
+
 }
