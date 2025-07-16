@@ -30,4 +30,9 @@ public class VentaServiceImpl implements VentaService {
     public Optional<Venta> findById(int id) {
         return ventaRepository.findById(id);
     }
+
+    @Override
+    public List<Venta> findVentasSinTecnico() {
+        return ventaRepository.findByTecnicoIsNull();
+    }
 }

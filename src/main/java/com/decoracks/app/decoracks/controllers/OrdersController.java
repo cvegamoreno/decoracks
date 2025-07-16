@@ -1,17 +1,20 @@
 package com.decoracks.app.decoracks.controllers;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.decoracks.app.decoracks.models.entity.Cliente;
 import com.decoracks.app.decoracks.models.entity.DetalleVenta;
@@ -38,17 +41,20 @@ public class OrdersController {
     private final VentaService ventaService;
     private final DetalleVentaService detalleVentaService;
     private final StockProductoSedeService stockService;
+    private final UsuarioService usuarioService;
 
     public OrdersController(ClienteService clienteService,
             ProductoService productoService,
             VentaService ventaService,
             DetalleVentaService detalleVentaService,
-            StockProductoSedeService stockService) {
+            StockProductoSedeService stockService,
+            UsuarioService usuarioService) {
         this.clienteService = clienteService;
         this.productoService = productoService;
         this.ventaService = ventaService;
         this.detalleVentaService = detalleVentaService;
         this.stockService = stockService;
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/save")
@@ -68,12 +74,20 @@ public class OrdersController {
         Sede sede = new Sede();
         sede.setId(2);
 
+        // Obtener usuario logueado (por ahora ID 1 de prueba)
+        Usuario vendedor = usuarioService.findById(1).orElse(null);
+        if (vendedor == null) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+
         // Crear nueva venta
         Venta venta = new Venta();
         venta.setCliente(cliente);
         venta.setFecha(LocalDateTime.now());
         venta.setSede(sede);
-        venta = ventaService.save(venta); // Guardamos y obtenemos ID
+        venta.setVendedor(vendedor);
+        venta.setEstadoActual(Venta.EstadoVenta.pendiente);
+        venta = ventaService.save(venta);
 
         double totalVenta = 0;
 
@@ -101,21 +115,18 @@ public class OrdersController {
                 stockService.save(stock);
             }
         }
-
-        // Actualiza total de la venta si es necesario
         venta.setTotal(totalVenta);
         ventaService.save(venta);
 
-        return "redirect:/pedidos"; // O como sea tu ruta de éxito
+        return "redirect:/pedidos";
     }
 
     @GetMapping("")
     public String listar(Model model) throws JsonProcessingException {
-        int sedeId = 2; // Para pruebas
+        int sedeId = 2; 
 
         List<StockProductoSede> stockProductos = stockService.findBySedeConStock(sedeId);
 
-        // Filtrar y convertir a DTO plano para evitar bucles infinitos
         List<Map<String, Object>> productosDTO = stockProductos.stream().map(s -> {
             Map<String, Object> prod = new HashMap<>();
             prod.put("id", s.getProducto().getId());
@@ -131,7 +142,38 @@ public class OrdersController {
         model.addAttribute("productos", productosDTO);
         model.addAttribute("productosJson", productosJson);
 
+        List<Venta> ventas = ventaService.findAll();
+        model.addAttribute("ventas", ventas);
         return "orders";
     }
+
+    @GetMapping("/detalle/{id}")
+@ResponseBody
+public ResponseEntity<?> obtenerDetalleVenta(@PathVariable int id) {
+    Optional<Venta> ventaOpt = ventaService.findById(id);
+    if (ventaOpt.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    }
+
+    Venta venta = ventaOpt.get();
+
+    Map<String, Object> data = new HashMap<>();
+    data.put("cliente", venta.getCliente().getNombre());
+    data.put("vendedor", venta.getVendedor() != null ? venta.getVendedor().getNombre() : "No asignado");
+    data.put("fecha", venta.getFecha().toString());
+    data.put("total", venta.getTotal());
+
+    List<Map<String, Object>> detalles = venta.getDetalles().stream().map(detalle -> {
+        Map<String, Object> d = new HashMap<>();
+        d.put("producto", detalle.getProducto().getNombre());
+        d.put("cantidad", detalle.getCantidad());
+        d.put("precio", detalle.getPrecioUnitario());
+        d.put("subtotal", detalle.getCantidad() * detalle.getPrecioUnitario());
+        return d;
+    }).toList();
+
+    data.put("productos", detalles);
+    return ResponseEntity.ok(data);
+}
 
 }

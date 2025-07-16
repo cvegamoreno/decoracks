@@ -2,7 +2,6 @@ package com.decoracks.app.decoracks.controllers;
 
 import java.util.Optional;
 
-import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/productos")
 public class ProductoController {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(ProductoController.class);
 
     private final CategoriaService categoriaService;
 

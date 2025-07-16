@@ -9,4 +9,5 @@ public interface VentaService {
     Venta save(Venta venta);
     List<Venta> findAll();
     Optional<Venta> findById(int id);
+    List<Venta> findVentasSinTecnico();
 }
